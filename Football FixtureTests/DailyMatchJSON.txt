@@ -1,0 +1,650 @@
+
+{
+"count": 9,
+"filters": {
+"matchday": "1"
+},
+"competition": {
+"id": 2003,
+"area": {
+"id": 2163,
+"name": "Netherlands"
+},
+"name": "Eredivisie",
+"code": "DED",
+"plan": "TIER_ONE",
+"lastUpdated": "2019-09-02T23:55:08Z"
+},
+"matches": [
+{
+"id": 264789,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-02T18:00:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-02T23:59:35Z",
+"score": {
+"winner": "AWAY_TEAM",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 1,
+"awayTeam": 3
+},
+"halfTime": {
+"homeTeam": 1,
+"awayTeam": 1
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 684,
+"name": "PEC Zwolle"
+},
+"awayTeam": {
+"id": 672,
+"name": "Willem II Tilburg"
+},
+"referees": [
+{
+"id": 56912,
+"name": "Jeroen Manschot",
+"nationality": null
+},
+{
+"id": 43717,
+"name": "Richard Brondijk",
+"nationality": null
+},
+{
+"id": 56906,
+"name": "Cristian Dobre",
+"nationality": null
+},
+{
+"id": 56908,
+"name": "Richard Martens",
+"nationality": null
+},
+{
+"id": 14766,
+"name": "Christiaan Bax",
+"nationality": null
+}
+]
+},
+{
+"id": 264790,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-03T16:30:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-04T06:45:14Z",
+"score": {
+"winner": "DRAW",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 2,
+"awayTeam": 2
+},
+"halfTime": {
+"homeTeam": 1,
+"awayTeam": 1
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 679,
+"name": "SBV Vitesse"
+},
+"awayTeam": {
+"id": 678,
+"name": "AFC Ajax"
+},
+"referees": [
+{
+"id": 56905,
+"name": "Bas Nijhuis",
+"nationality": null
+},
+{
+"id": 43901,
+"name": "Bas van Dongen",
+"nationality": null
+},
+{
+"id": 9560,
+"name": "Erwin Zeinstra",
+"nationality": null
+},
+{
+"id": 14766,
+"name": "Christiaan Bax",
+"nationality": null
+},
+{
+"id": 43899,
+"name": "Danny Makkelie",
+"nationality": null
+}
+]
+},
+{
+"id": 264791,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-03T16:30:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-04T06:45:14Z",
+"score": {
+"winner": "AWAY_TEAM",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 0,
+"awayTeam": 1
+},
+"halfTime": {
+"homeTeam": 0,
+"awayTeam": 0
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 1914,
+"name": "FC Emmen"
+},
+"awayTeam": {
+"id": 677,
+"name": "FC Groningen"
+},
+"referees": [
+{
+"id": 15152,
+"name": "Pol van Boekel",
+"nationality": null
+},
+{
+"id": 43859,
+"name": "Dave Goossens",
+"nationality": null
+},
+{
+"id": 14765,
+"name": "Rens Bluemink",
+"nationality": null
+},
+{
+"id": 17144,
+"name": "Edgar Bijl",
+"nationality": null
+},
+{
+"id": 56904,
+"name": "Edwin van de Graaf",
+"nationality": null
+}
+]
+},
+{
+"id": 264792,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-03T18:45:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-04T22:20:15Z",
+"score": {
+"winner": "DRAW",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 1,
+"awayTeam": 1
+},
+"halfTime": {
+"homeTeam": 1,
+"awayTeam": 0
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 666,
+"name": "FC Twente '65"
+},
+"awayTeam": {
+"id": 674,
+"name": "PSV"
+},
+"referees": [
+{
+"id": 43858,
+"name": "Serdar Gözübüyük",
+"nationality": null
+},
+{
+"id": 43847,
+"name": "Charles Schaap",
+"nationality": null
+},
+{
+"id": 15154,
+"name": "Jan de Vries",
+"nationality": null
+},
+{
+"id": 56920,
+"name": "Stan Teuben",
+"nationality": null
+},
+{
+"id": 9561,
+"name": "Allard Lindhout",
+"nationality": null
+}
+]
+},
+{
+"id": 264793,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-03T18:45:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-04T22:20:15Z",
+"score": {
+"winner": "HOME_TEAM",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 3,
+"awayTeam": 1
+},
+"halfTime": {
+"homeTeam": 0,
+"awayTeam": 1
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 668,
+"name": "VVV Venlo"
+},
+"awayTeam": {
+"id": 683,
+"name": "RKC Waalwijk"
+},
+"referees": [
+{
+"id": 17136,
+"name": "Joey Kooij",
+"nationality": null
+},
+{
+"id": 56930,
+"name": "Jermaine Lapar",
+"nationality": null
+},
+{
+"id": 17109,
+"name": "Patrick Inia",
+"nationality": null
+},
+{
+"id": 80087,
+"name": "J. van der Laan",
+"nationality": null
+},
+{
+"id": 17141,
+"name": "Rob Dieperink",
+"nationality": null
+}
+]
+},
+{
+"id": 264794,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-04T10:15:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-05T17:50:10Z",
+"score": {
+"winner": "AWAY_TEAM",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 0,
+"awayTeam": 4
+},
+"halfTime": {
+"homeTeam": 0,
+"awayTeam": 3
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 671,
+"name": "Heracles Almelo"
+},
+"awayTeam": {
+"id": 673,
+"name": "SC Heerenveen"
+},
+"referees": [
+{
+"id": 56908,
+"name": "Richard Martens",
+"nationality": null
+},
+{
+"id": 56915,
+"name": "Richard Polman",
+"nationality": null
+},
+{
+"id": 17137,
+"name": "Dyon Fikkert",
+"nationality": null
+},
+{
+"id": 17139,
+"name": "Clay Ruperti",
+"nationality": null
+},
+{
+"id": 56902,
+"name": "Siemen Mulder",
+"nationality": null
+}
+]
+},
+{
+"id": 264795,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-04T12:30:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-05T14:15:00Z",
+"score": {
+"winner": "DRAW",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 2,
+"awayTeam": 2
+},
+"halfTime": {
+"homeTeam": 0,
+"awayTeam": 0
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 675,
+"name": "Feyenoord Rotterdam"
+},
+"awayTeam": {
+"id": 6806,
+"name": "Sparta Rotterdam"
+},
+"referees": [
+{
+"id": 43899,
+"name": "Danny Makkelie",
+"nationality": null
+},
+{
+"id": 43874,
+"name": "Mario Diks",
+"nationality": null
+},
+{
+"id": 43900,
+"name": "Hessel Steegstra",
+"nationality": null
+},
+{
+"id": 17141,
+"name": "Rob Dieperink",
+"nationality": null
+},
+{
+"id": 43716,
+"name": "Jochem Kamphuis",
+"nationality": null
+}
+]
+},
+{
+"id": 264796,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-04T14:45:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-05T17:25:10Z",
+"score": {
+"winner": "AWAY_TEAM",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 2,
+"awayTeam": 4
+},
+"halfTime": {
+"homeTeam": 2,
+"awayTeam": 2
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 680,
+"name": "ADO Den Haag"
+},
+"awayTeam": {
+"id": 676,
+"name": "FC Utrecht"
+},
+"referees": [
+{
+"id": 43902,
+"name": "Kevin Blom",
+"nationality": null
+},
+{
+"id": 56903,
+"name": "Roy de Nas",
+"nationality": null
+},
+{
+"id": 56913,
+"name": "Erik Kleinjan",
+"nationality": null
+},
+{
+"id": 80090,
+"name": "Marc Nagtegaal",
+"nationality": null
+},
+{
+"id": 56925,
+"name": "Martin Perez",
+"nationality": null
+}
+]
+},
+{
+"id": 264797,
+"season": {
+"id": 481,
+"startDate": "2019-08-09",
+"endDate": "2020-05-25",
+"currentMatchday": 6
+},
+"utcDate": "2019-08-04T18:00:00Z",
+"status": "FINISHED",
+"matchday": 1,
+"stage": "REGULAR_SEASON",
+"group": "Regular Season",
+"lastUpdated": "2019-08-05T22:30:10Z",
+"score": {
+"winner": "HOME_TEAM",
+"duration": "REGULAR",
+"fullTime": {
+"homeTeam": 4,
+"awayTeam": 0
+},
+"halfTime": {
+"homeTeam": 0,
+"awayTeam": 0
+},
+"extraTime": {
+"homeTeam": null,
+"awayTeam": null
+},
+"penalties": {
+"homeTeam": null,
+"awayTeam": null
+}
+},
+"homeTeam": {
+"id": 682,
+"name": "AZ"
+},
+"awayTeam": {
+"id": 1920,
+"name": "Fortuna Sittard"
+},
+"referees": [
+{
+"id": 43861,
+"name": "Dennis Higler",
+"nationality": null
+},
+{
+"id": 14764,
+"name": "Johan Balder",
+"nationality": null
+},
+{
+"id": 43860,
+"name": "Joost van Zuilen",
+"nationality": null
+},
+{
+"id": 17117,
+"name": "Laurens Gerrets",
+"nationality": null
+},
+{
+"id": 17144,
+"name": "Edgar Bijl",
+"nationality": null
+}
+]
+}
+]
+}
