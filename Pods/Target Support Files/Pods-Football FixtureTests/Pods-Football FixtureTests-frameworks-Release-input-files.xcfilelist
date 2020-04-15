@@ -1,6 +1,0 @@
-${PODS_ROOT}/Target Support Files/Pods-Football FixtureTests/Pods-Football FixtureTests-frameworks.sh
-${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework
-${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework
-${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework
-${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
-${BUILT_PRODUCTS_DIR}/SVGKit/SVGKit.framework

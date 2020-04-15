@@ -1,6 +1,0 @@
-framework module Pods_Football_FixtureTests {
-  umbrella header "Pods-Football FixtureTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
