@@ -13,7 +13,5 @@ struct table: Codable, Equatable {
     let playedGames: Int?
     let points: Int?
     let goalDifference: Int?
-    
-    
 
 }

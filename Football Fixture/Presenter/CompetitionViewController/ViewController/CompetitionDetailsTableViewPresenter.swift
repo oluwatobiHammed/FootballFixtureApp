@@ -21,6 +21,7 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var teamCollectionView: UICollectionView!
     var  totalViewModel: ITotalTableViewModel?
+    var refreshControl: UIRefreshControl?
     @IBOutlet weak var segmentedView: UIView!
     
     var matchDataSource: FixturesDetails?
@@ -39,13 +40,13 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
         super.viewDidLoad()
         self.alert = CustomAlert(on: self.view)
         ssss()
-        //print("This is the current competition:", CompetitionVC.currentCompetition?.competitionName)
-        //competitionViewModel?.saveCompetitionsDetails(competitions: competition)
+        refreshData()
         tableView.dataSource = self
         teamCollectionView.dataSource = self
         teamCollectionView.delegate = self
         tableView.alpha = 1
         teamCollectionView.alpha = 0
+        addRefreshControl()
         let itemsize = UIScreen.main.bounds.width/3 - 3
         let layOut = UICollectionViewFlowLayout()
         layOut.sectionInset = UIEdgeInsets(top: 0, left: 2, bottom: 10, right: 2)
@@ -55,17 +56,49 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
         teamCollectionView.collectionViewLayout = layOut
         totalViewModel?.viewDidLoad1()
         tableView.reloadData()
+        
+        totalViewModel?.dataExist.bind(onNext: { (val) in
+            if val {
+                self.tableView.restore()
+                self.teamCollectionView.restore()
+            }else{
+                self.tableView.setEmptyMessage("No Data is Avaliable for this competition")
+                self.teamCollectionView.setEmptyMessage("No Data is Avaliable for this competition")
+            }
+        }).disposed(by: disposeBag)
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
+    
+    func addRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.tintColor = .red
+        refreshControl?.addTarget(self, action: #selector(handleRefreshAction), for: .valueChanged)
+        tableView.addSubview(refreshControl!)
+    }
+    @objc func handleRefreshAction() {
+        refreshData()
+        refreshControl?.endRefreshing()
+        tableView.reloadData()
+    }
+    
+    private func refreshData() {
         if let competition = competit {
             if let id = competition.id {
-              totalViewModel?.updateTable(getID: id)
-              totalViewModel?.updateTeam(getID: competition.id!)
+                totalViewModel?.updateTable(getID: id)
+                totalViewModel?.updateTeam(getID: competition.id!)
                 if let md = competition.currentSeason?.currentMatchday{
-                     totalViewModel?.fixtureRespond(getID:id, getMD: md)
+                    totalViewModel?.fixtureRespond(getID:id, getMD: md)
                 }
             }
-                
+            
         }
-    
+        
         
         totalViewModel?.tableResponse.bind(onNext: { [weak self] (standing) in
             if let tables = standing[0].table{
@@ -76,47 +109,40 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
             }
             
             
-            }).disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         totalViewModel?.fixtureResponse.subscribe({ (match) in
             if let matches = match.element {
                 self.matchDataSource = FixturesDetails(matchesList: matches)
-                          self.matchList = match.element!
-                          DispatchQueue.main.async {
-                              self.tableView.reloadData()
-                          }
+                self.matchList = match.element!
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
-          
-            }).disposed(by: disposeBag)
+            
+        }).disposed(by: disposeBag)
         
         
         totalViewModel?.teamResponse.subscribe({ (team) in
             if let teams = team.element {
-                       self.teamList = teams
-                       DispatchQueue.main.async {
-                           self.teamCollectionView.reloadData()
-                       }
+                self.teamList = teams
+                DispatchQueue.main.async {
+                    self.teamCollectionView.reloadData()
+                }
             }
-       
-            }).disposed(by: disposeBag)
-        totalViewModel?.dataExist.bind(onNext: { (val) in
-            if val {
-                self.tableView.restore()
-                self.teamCollectionView.restore()
-            }else{
-                self.tableView.setEmptyMessage("No Data is Avaliable for this competition")
-                self.teamCollectionView.setEmptyMessage("No Data is Avaliable for this competition")
-            }
-            }).disposed(by: disposeBag)
-     
+            
+        }).disposed(by: disposeBag)
         
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-    }
-    
+    //    private func refreshTableIfNeeded(_ newMatch: [Match]) {
+    //         guard matchList != newMatch else {
+    //             return
+    //         }
+    //
+    //        matchList = newMatch
+    //        matchDataSource?.matchesList = newMatch
+    //        tableView.reloadData()
+    //    }
     func sendId( _ selectedIndex: IndexPath) {
         let team = teamList[selectedIndex.row]
         let   vc = self.storyboard!.instantiateViewController(withIdentifier: "squadVC") as? SquadViewController
@@ -149,7 +175,7 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    private func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let label = UILabel()
         
@@ -221,6 +247,7 @@ extension CompetitionDetailsTableViewPresenter{
         
         switch sender.selectedSegmentIndex {
         case 0:
+            refreshData()
             tableView.reloadData()
             tableView.dataSource = self
             tableView.alpha = 1
@@ -246,7 +273,7 @@ extension CompetitionDetailsTableViewPresenter{
 
 
 extension UICollectionView {
-
+    
     func setEmptyMessage(_ message: String) {
         let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
         messageLabel.text = message
@@ -256,13 +283,13 @@ extension UICollectionView {
         messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
         messageLabel.sizeToFit()
         DispatchQueue.main.async {
-        self.backgroundView = messageLabel;
+            self.backgroundView = messageLabel;
         }
     }
-
+    
     func restore() {
         DispatchQueue.main.async {
-        self.backgroundView = nil
+            self.backgroundView = nil
         }
     }
 }

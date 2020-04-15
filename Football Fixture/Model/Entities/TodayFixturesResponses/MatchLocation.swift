@@ -7,11 +7,11 @@
 //
 
 import Foundation
-struct awayTeam: Codable{
+struct awayTeam: Codable, Equatable{
     let name: String
     let lineup: [Lineup]?
 }
-struct homeTeam: Codable {
+struct homeTeam: Codable, Equatable {
     let name: String
     let lineup: [Lineup]?
 }

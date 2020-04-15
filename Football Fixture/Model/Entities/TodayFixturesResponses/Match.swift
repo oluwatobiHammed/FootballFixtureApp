@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Match: Codable {
+struct Match: Codable, Equatable {
     let status: String?
     let season: season?
     let homeTeam: homeTeam?

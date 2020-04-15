@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Lineup: Codable {
+struct Lineup: Codable, Equatable {
     let name: String
     let position: String
     let shirtNumber: Int
