@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -182,6 +182,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yU7-dk-G9C">
+                                <rect key="frame" x="0.0" y="84" width="375" height="583"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUX-8s-sgQ">
                                 <rect key="frame" x="0.0" y="44" width="375" height="40"/>
                                 <color key="backgroundColor" name="Info Color-1"/>
@@ -480,20 +484,25 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="qVV-KU-36b" secondAttribute="bottom" id="1kQ-zy-eay"/>
+                            <constraint firstItem="yU7-dk-G9C" firstAttribute="top" secondItem="YUX-8s-sgQ" secondAttribute="bottom" id="30q-ux-7aC"/>
                             <constraint firstItem="uhk-wI-9JL" firstAttribute="top" secondItem="YUX-8s-sgQ" secondAttribute="bottom" id="OSH-WC-GdB"/>
                             <constraint firstAttribute="bottom" secondItem="uhk-wI-9JL" secondAttribute="bottom" id="Qnt-2s-SMZ"/>
+                            <constraint firstItem="yU7-dk-G9C" firstAttribute="leading" secondItem="UrW-Ht-hyg" secondAttribute="leading" id="V6j-6A-x78"/>
                             <constraint firstItem="YUX-8s-sgQ" firstAttribute="leading" secondItem="9MV-bh-Q0w" secondAttribute="leading" id="dIi-u7-ck1"/>
                             <constraint firstItem="qVV-KU-36b" firstAttribute="trailing" secondItem="9MV-bh-Q0w" secondAttribute="trailing" id="duf-sZ-xIc"/>
                             <constraint firstItem="uhk-wI-9JL" firstAttribute="leading" secondItem="UrW-Ht-hyg" secondAttribute="leading" id="fOF-3S-eLW"/>
                             <constraint firstItem="YUX-8s-sgQ" firstAttribute="top" secondItem="9MV-bh-Q0w" secondAttribute="top" id="gIg-kO-1Xs"/>
                             <constraint firstItem="qVV-KU-36b" firstAttribute="top" secondItem="YUX-8s-sgQ" secondAttribute="bottom" id="hRQ-hQ-LxK"/>
+                            <constraint firstAttribute="bottom" secondItem="yU7-dk-G9C" secondAttribute="bottom" id="hz6-Ce-zH0"/>
                             <constraint firstItem="YUX-8s-sgQ" firstAttribute="trailing" secondItem="9MV-bh-Q0w" secondAttribute="trailing" id="i8V-ZN-ixJ"/>
                             <constraint firstAttribute="trailing" secondItem="uhk-wI-9JL" secondAttribute="trailing" id="j7p-EV-obk"/>
                             <constraint firstItem="qVV-KU-36b" firstAttribute="leading" secondItem="9MV-bh-Q0w" secondAttribute="leading" id="oNf-V3-uM6"/>
+                            <constraint firstAttribute="trailing" secondItem="yU7-dk-G9C" secondAttribute="trailing" id="px8-WP-O78"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9MV-bh-Q0w"/>
                     </view>
                     <connections>
+                        <outlet property="emptyView" destination="yU7-dk-G9C" id="gF1-0E-chc"/>
                         <outlet property="segmentedView" destination="YUX-8s-sgQ" id="0qB-h5-jOC"/>
                         <outlet property="tableView" destination="qVV-KU-36b" id="GtB-1H-yAB"/>
                         <outlet property="teamCollectionView" destination="uhk-wI-9JL" id="klx-Qq-dGM"/>

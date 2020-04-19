@@ -18,6 +18,7 @@ struct CompetitionVC {
 
 class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataSource {
     
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var teamCollectionView: UICollectionView!
     var  totalViewModel: ITotalTableViewModel?
@@ -36,15 +37,20 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
     override func getViewModel() -> BaseViewModel {
         return self.totalViewModel as! BaseViewModel
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setEmptyView(title: "No Table is avaliable for this competition", message: "Avaliable Table will show here", messageImage: #imageLiteral(resourceName: "swipe-right (1)"))
+            emtyTableView()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.alert = CustomAlert(on: self.view)
         ssss()
         refreshData()
         tableView.dataSource = self
         teamCollectionView.dataSource = self
         teamCollectionView.delegate = self
-        tableView.alpha = 1
+        tableView.alpha = 0
         teamCollectionView.alpha = 0
         addRefreshControl()
         let itemsize = UIScreen.main.bounds.width/3 - 3
@@ -67,9 +73,8 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
             }
         }).disposed(by: disposeBag)
         
-        
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
@@ -102,8 +107,9 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
         
         totalViewModel?.tableResponse.bind(onNext: { [weak self] (standing) in
             if let tables = standing[0].table{
-                self?.tableList = tables
                 DispatchQueue.main.async {
+                    self?.tableList = tables
+                    self?.emptyView.alpha = 0
                     self?.tableView.reloadData()
                 }
             }
@@ -193,7 +199,6 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
     }
     func ssss() {
         segmentedControl = CustomSegmentedContrl.init(frame: CGRect.init(x: 0, y: 30, width: self.view.frame.width, height: 40))
-        //print(ids)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.backgroundColor = .clear
         segmentedControl.commaSeperatedButtonTitles  = titles
@@ -247,25 +252,127 @@ extension CompetitionDetailsTableViewPresenter{
         
         switch sender.selectedSegmentIndex {
         case 0:
-            refreshData()
-            tableView.reloadData()
-            tableView.dataSource = self
-            tableView.alpha = 1
-            teamCollectionView.alpha = 0
+            emtyTableView()
         case 1:
-            tableView.reloadData()
-            tableView.dataSource = matchDataSource
-            tableView.alpha = 1
-            teamCollectionView.alpha = 0
+            emtyMatchView()
         case 2:
-            teamCollectionView.alpha = 1
-            tableView.alpha = 0
+            emtyTeamView()
         default:
             break
         }
         
         
     }
+    
+    func emtyTableView() {
+        
+        if tableList.count <= 0 {
+            tableView.alpha = 0
+            emptyView.alpha = 1
+   
+         }else{
+            DispatchQueue.main.async {
+                self.emptyView.alpha = 0
+                self.tableView.dataSource = self
+                self.tableView.alpha = 1
+                self.teamCollectionView.alpha = 0
+                self.tableView.reloadData()
+            }
+        
+         }
+        
+    }
+    
+    func emtyMatchView() {
+         
+         if matchList.count <= 0 {
+             tableView.alpha = 0
+             emptyView.alpha = 1
+          }else{
+             DispatchQueue.main.async {
+                 self.emptyView.alpha = 0
+                 self.tableView.dataSource = self.matchDataSource
+                 self.tableView.alpha = 1
+                 self.teamCollectionView.alpha = 0
+                 self.tableView.reloadData()
+             }
+         
+          }
+         
+     }
+    
+    func emtyTeamView() {
+         
+         if teamList.count <= 0 {
+             tableView.alpha = 0
+             teamCollectionView.alpha = 0
+             emptyView.alpha = 1
+          }else{
+             DispatchQueue.main.async {
+                 self.emptyView.alpha = 0
+                 self.tableView.alpha = 0
+                 self.teamCollectionView.alpha = 1
+                 self.teamCollectionView.reloadData()
+             }
+         
+          }
+         
+     }
+    
+        func setEmptyView(title: String, message: String, messageImage: UIImage) {
+           
+            let messageImageView = UIImageView()
+            let titleLabel = UILabel()
+            let messageLabel = UILabel()
+    
+            messageImageView.backgroundColor = .clear
+    
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            messageImageView.translatesAutoresizingMaskIntoConstraints = false
+            messageLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+            titleLabel.textColor = UIColor.black
+            titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+    
+            messageLabel.textColor = UIColor.lightGray
+            messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
+    
+            emptyView.addSubview(titleLabel)
+            emptyView.addSubview(messageImageView)
+            emptyView.addSubview(messageLabel)
+    
+            messageImageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+            messageImageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -20).isActive = true
+            messageImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+            messageImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+    
+            titleLabel.topAnchor.constraint(equalTo: messageImageView.bottomAnchor, constant: 10).isActive = true
+            titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+    
+            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
+            messageLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
+    
+            messageImageView.image = messageImage
+            titleLabel.text = title
+            messageLabel.text = message
+            messageLabel.numberOfLines = 0
+            messageLabel.textAlignment = .center
+    
+            UIView.animate(withDuration: 1, animations: {
+    
+                messageImageView.transform = CGAffineTransform(rotationAngle: .pi / 10)
+            }, completion: { (finish) in
+                UIView.animate(withDuration: 1, animations: {
+                    messageImageView.transform = CGAffineTransform(rotationAngle: -1 * (.pi / 10))
+                }, completion: { (finishh) in
+                    UIView.animate(withDuration: 1, animations: {
+                        messageImageView.transform = CGAffineTransform.identity
+                    })
+                })
+    
+            })
+    
+        }
     
     
     

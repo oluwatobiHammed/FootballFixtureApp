@@ -113,7 +113,8 @@ class BaseViewController: UIViewController {
     
     private func observeThrowableErrorState() {
         getViewModel().throwableError.asObserver().bind { [weak self] error in
-            self?.showAlert(message: error.localizedDescription, type: .error)
+            let err = error as NSError
+            self?.showAlert(message: err.localizedDescription, type: .error)
         }.disposed(by: disposeBag)
     }
     

@@ -17,12 +17,9 @@ class CompetitionListPresenter: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var  competitionViewModel :ICompetitonViewModel?
-    var  totalViewModel: ITotalTableViewModel?
-    var fixtureViewModel: IFixturesViewModel?
     var currentCompetitionArray = CompetitionsModel.competitionlist
     var competionArray = CompetitionsModel.competitionlist
-    var selectedIndex = 0
-    var competitionMatch = TableRemoteImpl(config: .default)
+    var refreshControl: UIRefreshControl?
     override func getViewModel() -> BaseViewModel {
         return self.competitionViewModel as! BaseViewModel
     }
@@ -32,22 +29,8 @@ class CompetitionListPresenter: BaseViewController {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         searchBar.placeholder = "Search For Competitions Name"
         competitionViewModel?.viewDidLoad1()
-        competitionViewModel?.competitionRespond()
-        competitionViewModel?.competitionResponse.subscribe({ (competition) in
-            DispatchQueue.main.async {
-                if let competitions = competition.element {
-                    self.competionArray = competitions
-                    self.currentCompetitionArray = self.competionArray
-                    self.tableView.reloadData(  with: .simple(duration: 0.75, direction: .rotation3D(type: .deadpool),constantDelay: 0))
-                    self.tableView.reloadData()
-                  
-                }
-            }
-            
-            
-            }).disposed(by: disposeBag)
-        
-          print(self.competionArray)
+        refreshData()
+        addRefreshControl()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +53,35 @@ class CompetitionListPresenter: BaseViewController {
     
                   }
     
+    func addRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.tintColor = .red
+        refreshControl?.addTarget(self, action: #selector(handleRefreshAction), for: .valueChanged)
+        tableView.addSubview(refreshControl!)
+    }
+    @objc func handleRefreshAction() {
+        refreshData()
+        refreshControl?.endRefreshing()
+        tableView.reloadData()
+    }
+    func refreshData()  {
+        competitionViewModel?.competitionRespond()
+        competitionViewModel?.competitionResponse.subscribe({ (competition) in
+            DispatchQueue.main.async {
+                if let competitions = competition.element {
+                    self.competionArray = competitions
+                    self.currentCompetitionArray = self.competionArray
+                    self.tableView.reloadData(  with: .simple(duration: 0.75, direction: .rotation3D(type: .deadpool),constantDelay: 0))
+                    self.tableView.reloadData()
+                  
+                }
+            }
+            
+            
+            }).disposed(by: disposeBag)
+        
+        
+    }
     
     
 }
