@@ -33,6 +33,15 @@ extension Date {
         
         return dateFormatter.date(from: string)?.timeIntervalSince1970
     }
+    
+    static func dateFormatter (string: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat =  "yyyy-MM-dd"
+        let showDate = inputFormatter.date(from: string)
+        inputFormatter.dateFormat =  "dd/MM/yyyy"
+        let resultString = inputFormatter.string(from: showDate!)
+        return resultString
+    }
 }
 
 extension String {

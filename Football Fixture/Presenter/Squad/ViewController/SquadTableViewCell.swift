@@ -8,23 +8,24 @@
 
 import UIKit
 
-class SquadTableViewCell: UITableViewCell {
+class SquadTableViewCell: UITableViewCell{
 
     @IBOutlet weak var playersNameLabel: UILabel!
     
     @IBOutlet weak var playersPositionLabel: UILabel!
     
     @IBOutlet weak var numberingLabel: UILabel!
-    
-    var oneTeam: squad! {
+
+
+    var data: squad! {
         didSet{
-            if let teamN =  oneTeam.name {
+            if let teamN =  data.name, let PlayerPosition = data.position {
                  playersNameLabel.text = "\(String(teamN))"
+                 playersPositionLabel.text =  "\(String(PlayerPosition))"
             }
-            if let PlayerPosition = oneTeam.position{
-                            
-                playersPositionLabel.text =  "\(String(PlayerPosition))"
-                }
         }
     }
+    
+
+    
 }

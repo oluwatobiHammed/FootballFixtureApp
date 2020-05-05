@@ -23,7 +23,7 @@ class CompetitionInjections {
 
         
         
-        container.storyboardInitCompleted(CompetitionListPresenter.self) { res, cntrl in
+        container.storyboardInitCompleted(CompetitionViewController.self) { res, cntrl in
             cntrl.competitionViewModel = res.resolve(ICompetitonViewModel.self)
               }
     }

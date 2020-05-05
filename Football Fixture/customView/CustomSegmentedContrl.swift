@@ -213,7 +213,6 @@ class CustomSegmentedContrl: UIControl {
     
 }
 
-
 //MARK: - UIView Inspectables
 extension UIView {
     
@@ -249,10 +248,10 @@ extension UIView {
         let tap = UIViewTapGestureRecognizer(target: self , action: #selector(self.handleTap(_:)))
         tap.action = action
         tap.numberOfTapsRequired = 1
-        
+
         self.addGestureRecognizer(tap)
         self.isUserInteractionEnabled = true
-        
+
     }
     @objc func handleTap(_ sender: UIViewTapGestureRecognizer) {
         sender.action!()

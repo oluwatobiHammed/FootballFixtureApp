@@ -34,9 +34,8 @@ DEPENDENCIES:
   - TableViewReloadAnimation (~> 0.0.5)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - CocoaLumberjack
   trunk:
+    - CocoaLumberjack
     - lottie-ios
     - Realm
     - RealmSwift

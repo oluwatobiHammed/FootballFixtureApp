@@ -16,8 +16,7 @@ class TodayMatchInjections {
     container.register(ITodaysFixturesViewModel.self) { res in
         TodaysFixturesViewModel(matchRespo: res.resolve(IMatchesRemote.self)!)
           }
-        
-        container.storyboardInitCompleted(TodaysFixturesPresenter.self) { res, cntrl in
+        container.storyboardInitCompleted(TodaysFixturesViewController.self) { res, cntrl in
             cntrl.todaysFixturesViewModel = res.resolve(ITodaysFixturesViewModel.self)
               }
         

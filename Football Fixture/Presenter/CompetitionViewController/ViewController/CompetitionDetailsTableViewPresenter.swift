@@ -12,191 +12,100 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct CompetitionVC {
-    static var currentCompetition: competition?
-}
 
-class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataSource {
+class CompetitionDetailsTableViewPresenter: BaseTableViewController {
+ 
     
-    @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var teamCollectionView: UICollectionView!
-    var  totalViewModel: ITotalTableViewModel?
-    var refreshControl: UIRefreshControl?
+ 
+    
+    
+    //    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var segmentedView: UIView!
-    
-    var matchDataSource: FixturesDetails?
+    var matchDataSource: MatchesDataSource?
+    var teamDataSource: TeamDataSource?
     var matchList: [Match] = []
+    var teamList: [Teams] = []
+    override var presentRequestData: Any? {
+        didSet {
+            
+        }
+    }
+    override var presentRequestDataToo: Any? {
+        didSet {
+            
+        }
+    }
+    
+    var totalViewModel: ICompetitionDetailsViewModel?
     let titles = "Table ,Fixtures, Team"
     var competit: competition?
-    var teamList = [Teams]()
-    var tableList = [table]()
+    var noDataAlert: CustomNoDataAlert?
     fileprivate var alert: CustomAlert?
     var segmentedControl: CustomSegmentedContrl!
-    
     override func getViewModel() -> BaseViewModel {
         return self.totalViewModel as! BaseViewModel
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setEmptyView(title: "No Table is avaliable for this competition", message: "Avaliable Table will show here", messageImage: #imageLiteral(resourceName: "swipe-right (1)"))
-            emtyTableView()
+        //emtyTableView()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         ssss()
+        cellID = "totalCell"
+        // noDataAlert = CustomNoDataAlert.init(on: emptyView)
         refreshData()
-        tableView.dataSource = self
-        teamCollectionView.dataSource = self
-        teamCollectionView.delegate = self
-        tableView.alpha = 0
-        teamCollectionView.alpha = 0
-        addRefreshControl()
-        let itemsize = UIScreen.main.bounds.width/3 - 3
-        let layOut = UICollectionViewFlowLayout()
-        layOut.sectionInset = UIEdgeInsets(top: 0, left: 2, bottom: 10, right: 2)
-        layOut.itemSize = CGSize(width: itemsize, height: itemsize)
-        layOut.minimumInteritemSpacing = 2
-        layOut.minimumLineSpacing = 2
-        teamCollectionView.collectionViewLayout = layOut
         totalViewModel?.viewDidLoad1()
-        tableView.reloadData()
-        
-        totalViewModel?.dataExist.bind(onNext: { (val) in
-            if val {
-                self.tableView.restore()
-                self.teamCollectionView.restore()
-            }else{
-                self.tableView.setEmptyMessage("No Data is Avaliable for this competition")
-                self.teamCollectionView.setEmptyMessage("No Data is Avaliable for this competition")
+    }
+    
+//     func cellTaped(data: IndexPath) {
+//        print(data)
+//        let team = teamList[data.row]
+//        let _ = StoryBoardsID.competition.navigationProvider.requestNavigation(to: ViewControllerID.squadVC.rawValue, requestData: team, mode: .modal)
+//      }
+    func showNoDataAlert(title: String, message: String, messageImage: UIImage) {
+        self.noDataAlert?.setEmptyView(title: title, message: message, messageImage: messageImage)
+    }
+    
+    override func doLoadData(callback: @escaping (([Any]) -> Void)) {
+        totalViewModel?.updateTable(getID: presentRequestData as! Int)
+        totalViewModel?.tableResponse.bind(onNext: {(standing) in
+            if let tables = standing[0].table{
+                callback(tables)
             }
         }).disposed(by: disposeBag)
         
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        totalViewModel?.fixtureRespond(getID:presentRequestData as! Int, getMD: presentRequestDataToo as! Int)
+        totalViewModel?.updateTeam(getID: presentRequestData as! Int)
+        
+        
     }
     
-    
-    func addRefreshControl() {
-        refreshControl = UIRefreshControl()
-        refreshControl?.tintColor = .red
-        refreshControl?.addTarget(self, action: #selector(handleRefreshAction), for: .valueChanged)
-        tableView.addSubview(refreshControl!)
-    }
-    @objc func handleRefreshAction() {
-        refreshData()
-        refreshControl?.endRefreshing()
-        tableView.reloadData()
-    }
     
     private func refreshData() {
-        if let competition = competit {
-            if let id = competition.id {
-                totalViewModel?.updateTable(getID: id)
-                totalViewModel?.updateTeam(getID: competition.id!)
-                if let md = competition.currentSeason?.currentMatchday{
-                    totalViewModel?.fixtureRespond(getID:id, getMD: md)
-                }
-            }
-            
-        }
-        
-        
-        totalViewModel?.tableResponse.bind(onNext: { [weak self] (standing) in
-            if let tables = standing[0].table{
-                DispatchQueue.main.async {
-                    self?.tableList = tables
-                    self?.emptyView.alpha = 0
-                    self?.tableView.reloadData()
-                }
-            }
-            
-            
-        }).disposed(by: disposeBag)
-        
-        totalViewModel?.fixtureResponse.subscribe({ (match) in
+        totalViewModel?.fixtureResponse.subscribe({ [weak self] (match) in
             if let matches = match.element {
-                self.matchDataSource = FixturesDetails(matchesList: matches)
-                self.matchList = match.element!
+                self?.matchDataSource = MatchesDataSource(matchesList: matches)
+                self?.matchList = matches
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    self?.tableView?.reloadData()
                 }
             }
-            
         }).disposed(by: disposeBag)
         
-        
-        totalViewModel?.teamResponse.subscribe({ (team) in
+        totalViewModel?.teamResponse.subscribe({ [weak self] (team) in
             if let teams = team.element {
-                self.teamList = teams
+                self?.teamDataSource = TeamDataSource(teamList: teams, viewController: self!)
+                self?.teamList = teams
                 DispatchQueue.main.async {
-                    self.teamCollectionView.reloadData()
+                    self?.collectionView?.reloadData()
                 }
             }
-            
         }).disposed(by: disposeBag)
         
     }
-    //    private func refreshTableIfNeeded(_ newMatch: [Match]) {
-    //         guard matchList != newMatch else {
-    //             return
-    //         }
-    //
-    //        matchList = newMatch
-    //        matchDataSource?.matchesList = newMatch
-    //        tableView.reloadData()
-    //    }
-    func sendId( _ selectedIndex: IndexPath) {
-        let team = teamList[selectedIndex.row]
-        let   vc = self.storyboard!.instantiateViewController(withIdentifier: "squadVC") as? SquadViewController
-        vc?.squad = team
-        self.present(vc!, animated: true, completion: nil)
-    }
     
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-        
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return tableList.count
-        
-        
-        
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "totalCell")! as? TeamsTableViewCell
-        
-        let table =  tableList[indexPath.row]
-        cell?.table = table
-        cell?.selectionStyle = .none
-        return cell!
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    private func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let label = UILabel()
-        
-        if #available(iOS 13.0, *) {
-            label.backgroundColor = UIColor.systemBackground
-        } else {
-            // Fallback on earlier versions
-        }
-        label.font = .boldSystemFont(ofSize: 12)
-        if section == 0{
-            label.text = "    #                  TEAM                                                              PTS    P     GD        "
-        }
-        
-        return label
-    }
     func ssss() {
         segmentedControl = CustomSegmentedContrl.init(frame: CGRect.init(x: 0, y: 30, width: self.view.frame.width, height: 40))
         segmentedControl.selectedSegmentIndex = 0
@@ -223,180 +132,88 @@ class CompetitionDetailsTableViewPresenter: BaseViewController, UITableViewDataS
     
 }
 
-extension CompetitionDetailsTableViewPresenter: UICollectionViewDelegate, UICollectionViewDataSource{
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return teamList.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamcell", for: indexPath) as? TeamsCollectionViewCell
-        let team =  teamList[indexPath.row]
-        cell?.team = team
-        cell?.addTapGesture {
-            print("Cell Pressed")
-            self.sendId(indexPath)
-        }
-        
-        return cell!
-    }
-}
 
 extension CompetitionDetailsTableViewPresenter{
-    
     @objc func onChangeOfSegment(_ sender: CustomSegmentedContrl) {
-        
-        
         switch sender.selectedSegmentIndex {
         case 0:
-            emtyTableView()
+            tableView?.alpha = 1
+            collectionView?.alpha = 0
+            tableView?.dataSource = self
+            DispatchQueue.main.async {
+                self.tableView?.reloadData()
+            }
+        //emtyTableView()
         case 1:
-            emtyMatchView()
+            tableView?.alpha = 1
+            collectionView?.alpha = 0
+            tableView?.dataSource = matchDataSource
+            DispatchQueue.main.async {
+                self.tableView?.reloadData()
+            }
+        //emtyMatchView()
         case 2:
-            emtyTeamView()
+            tableView?.alpha = 0
+            collectionView?.alpha = 1
+            collectionView?.dataSource = teamDataSource
+            DispatchQueue.main.async {
+                self.collectionView?.reloadData()
+            }
+        //emtyTeamView()
         default:
             break
         }
-        
-        
     }
     
-    func emtyTableView() {
-        
-        if tableList.count <= 0 {
-            tableView.alpha = 0
-            emptyView.alpha = 1
-   
-         }else{
-            DispatchQueue.main.async {
-                self.emptyView.alpha = 0
-                self.tableView.dataSource = self
-                self.tableView.alpha = 1
-                self.teamCollectionView.alpha = 0
-                self.tableView.reloadData()
-            }
-        
-         }
-        
-    }
+    //    func emtyTableView() {
+    //        if self.items.count <= 0 {
+    //            showNoDataAlert(title: "No Table is avaliable for this competition", message: "Avaliable Table will show here", messageImage: #imageLiteral(resourceName: "swipe-right (1)"))
+    //            tableView?.alpha = 0
+    //            collectView?.alpha = 0
+    //            emptyView.alpha = 1
+    //        }else{
+    //            DispatchQueue.main.async {
+    //                self.emptyView.alpha = 0
+    //                //self.tableView?.dataSource = self
+    //                self.tableView?.alpha = 1
+    //                self.collectView?.alpha = 0
+    //                self.tableView?.reloadData()
+    //            }
+    //
+    //        }
+    //
+    //    }
     
-    func emtyMatchView() {
-         
-         if matchList.count <= 0 {
-             tableView.alpha = 0
-             emptyView.alpha = 1
-          }else{
-             DispatchQueue.main.async {
-                 self.emptyView.alpha = 0
-                 self.tableView.dataSource = self.matchDataSource
-                 self.tableView.alpha = 1
-                 self.teamCollectionView.alpha = 0
-                 self.tableView.reloadData()
-             }
-         
-          }
-         
-     }
+    //    func emtyMatchView() {
+    //        if matchList.count <= 0 {
+    //            tableView?.alpha = 0
+    //            collectView?.alpha = 0
+    //            emptyView.alpha = 1
+    //        }else{
+    //            DispatchQueue.main.async {
+    //                self.emptyView.alpha = 0
+    //                self.tableView?.dataSource = self.matchDataSource
+    //                self.tableView?.alpha = 1
+    //                self.collectView?.alpha = 0
+    //                self.tableView?.reloadData()
+    //            }
+    //
+    //        }
+    //
+    //    }
     
-    func emtyTeamView() {
-         
-         if teamList.count <= 0 {
-             tableView.alpha = 0
-             teamCollectionView.alpha = 0
-             emptyView.alpha = 1
-          }else{
-             DispatchQueue.main.async {
-                 self.emptyView.alpha = 0
-                 self.tableView.alpha = 0
-                 self.teamCollectionView.alpha = 1
-                 self.teamCollectionView.reloadData()
-             }
-         
-          }
-         
-     }
-    
-        func setEmptyView(title: String, message: String, messageImage: UIImage) {
-           
-            let messageImageView = UIImageView()
-            let titleLabel = UILabel()
-            let messageLabel = UILabel()
-    
-            messageImageView.backgroundColor = .clear
-    
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            messageImageView.translatesAutoresizingMaskIntoConstraints = false
-            messageLabel.translatesAutoresizingMaskIntoConstraints = false
-    
-            titleLabel.textColor = UIColor.black
-            titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
-    
-            messageLabel.textColor = UIColor.lightGray
-            messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
-    
-            emptyView.addSubview(titleLabel)
-            emptyView.addSubview(messageImageView)
-            emptyView.addSubview(messageLabel)
-    
-            messageImageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-            messageImageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -20).isActive = true
-            messageImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-            messageImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-    
-            titleLabel.topAnchor.constraint(equalTo: messageImageView.bottomAnchor, constant: 10).isActive = true
-            titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-    
-            messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-            messageLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
-    
-            messageImageView.image = messageImage
-            titleLabel.text = title
-            messageLabel.text = message
-            messageLabel.numberOfLines = 0
-            messageLabel.textAlignment = .center
-    
-            UIView.animate(withDuration: 1, animations: {
-    
-                messageImageView.transform = CGAffineTransform(rotationAngle: .pi / 10)
-            }, completion: { (finish) in
-                UIView.animate(withDuration: 1, animations: {
-                    messageImageView.transform = CGAffineTransform(rotationAngle: -1 * (.pi / 10))
-                }, completion: { (finishh) in
-                    UIView.animate(withDuration: 1, animations: {
-                        messageImageView.transform = CGAffineTransform.identity
-                    })
-                })
-    
-            })
-    
-        }
-    
-    
-    
+    //    func emtyTeamView() {
+    //        if teamList.count <= 0 {
+    //            tableView?.alpha = 0
+    //            collectView?.alpha = 0
+    //            emptyView.alpha = 1
+    //        }else{
+    //            self.emptyView.alpha = 0
+    //            //self.collectView?.dataSource = self
+    //            self.tableView?.alpha = 0
+    //            self.collectView?.alpha = 1
+    //        }
+    //    }
 }
 
 
-extension UICollectionView {
-    
-    func setEmptyMessage(_ message: String) {
-        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
-        messageLabel.text = message
-        messageLabel.textColor = .lightGray
-        messageLabel.numberOfLines = 0;
-        messageLabel.textAlignment = .center;
-        messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
-        messageLabel.sizeToFit()
-        DispatchQueue.main.async {
-            self.backgroundView = messageLabel;
-        }
-    }
-    
-    func restore() {
-        DispatchQueue.main.async {
-            self.backgroundView = nil
-        }
-    }
-}
