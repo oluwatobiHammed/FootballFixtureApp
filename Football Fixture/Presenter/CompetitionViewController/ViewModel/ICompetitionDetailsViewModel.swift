@@ -11,7 +11,7 @@ import RxSwift
 
 protocol ICompetitionDetailsViewModel {
     var tableResponse: PublishSubject<[standings]> { get }
-    var fixtureResponse: PublishSubject<[Match]> { get }
+    var fixtureResponse: PublishSubject<[Matches]> { get }
     var teamResponse: PublishSubject<[Teams]> { get }
     var dataExist: PublishSubject<Bool> { get }
     func viewDidLoad1()

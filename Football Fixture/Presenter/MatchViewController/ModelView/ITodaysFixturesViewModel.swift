@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol ITodaysFixturesViewModel {
-    var matchResponse: PublishSubject<[Match]> { get }
+    var matchResponse: PublishSubject<[Matches]> { get }
     func viewDidLoad1()
     func matchRespond()
 }

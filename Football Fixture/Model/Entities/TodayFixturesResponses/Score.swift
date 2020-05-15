@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct Score: Codable, Equatable {
-    let fullTime:FullTime?
-}
+//struct Score: Codable, Equatable {
+//    let fullTime:FullTime?
+//}
 
-struct FullTime: Codable, Equatable{
-    let homeTeam: Int
-    let awayTeam: Int
-    
-}
+//struct FullTime: Codable, Equatable{
+//    let homeTeam: Int
+//    let awayTeam: Int
+//    
+//}

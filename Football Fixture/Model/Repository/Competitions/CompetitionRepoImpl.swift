@@ -23,7 +23,7 @@ struct CompetitionRepoImpl: ICompetitionRepo {
      }
      
      func saveCompetitionsDetails(competitions: competition) {
-         competitionLocal!.saveCompetitionsDetails(competitions: competitions)
+         //competitionLocal!.saveCompetitionsDetails(competitions: competitions)
      }
 
 }

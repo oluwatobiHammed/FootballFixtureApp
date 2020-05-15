@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 
 class CompetitionCellViewModel {
-     func bindProductToCell(cell: CompetitionTableViewCell, competition: competition) {
-           if let season = competition.currentSeason?.season, let name = competition.competitionName{
+     func bindProductToCell(cell: CompetitionTableViewCell, competition: Competition) {
+         //let
+         let name = competition.competitionName, season = competition.Season
                cell.textLabel?.text = "\(name)" + "  " + "\(Date.dateFormatter(string: season))"
+               cell.textLabel?.sizeToFit()
                cell.textLabel?.textColor = .white
                
-           }
+           
        
       }
     

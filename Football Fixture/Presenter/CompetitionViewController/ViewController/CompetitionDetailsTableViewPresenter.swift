@@ -14,20 +14,17 @@ import RxCocoa
 
 
 class CompetitionDetailsTableViewPresenter: BaseTableViewController {
- 
     
- 
-    
-    
-    //    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var segmentedView: UIView!
     var matchDataSource: MatchesDataSource?
     var teamDataSource: TeamDataSource?
-    var matchList: [Match] = []
+    var matchList: [Matches] = []
     var teamList: [Teams] = []
+    var data: Competition?
     override var presentRequestData: Any? {
         didSet {
-            
+            data = presentRequestData as? Competition
         }
     }
     override var presentRequestDataToo: Any? {
@@ -54,30 +51,33 @@ class CompetitionDetailsTableViewPresenter: BaseTableViewController {
         super.viewDidLoad()
         ssss()
         cellID = "totalCell"
-        // noDataAlert = CustomNoDataAlert.init(on: emptyView)
+        noDataAlert = CustomNoDataAlert.init(on: emptyView)
         refreshData()
         totalViewModel?.viewDidLoad1()
     }
     
-//     func cellTaped(data: IndexPath) {
-//        print(data)
-//        let team = teamList[data.row]
-//        let _ = StoryBoardsID.competition.navigationProvider.requestNavigation(to: ViewControllerID.squadVC.rawValue, requestData: team, mode: .modal)
-//      }
     func showNoDataAlert(title: String, message: String, messageImage: UIImage) {
         self.noDataAlert?.setEmptyView(title: title, message: message, messageImage: messageImage)
     }
     
     override func doLoadData(callback: @escaping (([Any]) -> Void)) {
-        totalViewModel?.updateTable(getID: presentRequestData as! Int)
+        
         totalViewModel?.tableResponse.bind(onNext: {(standing) in
-            if let tables = standing[0].table{
-                callback(tables)
+            if standing.isEmpty {
+                print("It is empty")
+            }else{
+                if let tables = standing[0].table{
+                    callback(tables)
+                }else {
+                    print("No data here")
+                }
             }
+            
         }).disposed(by: disposeBag)
         
-        totalViewModel?.fixtureRespond(getID:presentRequestData as! Int, getMD: presentRequestDataToo as! Int)
-        totalViewModel?.updateTeam(getID: presentRequestData as! Int)
+        totalViewModel?.fixtureRespond(getID:data!.id,getMD: 1)
+        totalViewModel?.updateTeam(getID:data!.id)
+        totalViewModel?.updateTable(getID: data!.id)
         
         
     }
@@ -159,61 +159,12 @@ extension CompetitionDetailsTableViewPresenter{
             DispatchQueue.main.async {
                 self.collectionView?.reloadData()
             }
-        //emtyTeamView()
         default:
             break
         }
     }
     
-    //    func emtyTableView() {
-    //        if self.items.count <= 0 {
-    //            showNoDataAlert(title: "No Table is avaliable for this competition", message: "Avaliable Table will show here", messageImage: #imageLiteral(resourceName: "swipe-right (1)"))
-    //            tableView?.alpha = 0
-    //            collectView?.alpha = 0
-    //            emptyView.alpha = 1
-    //        }else{
-    //            DispatchQueue.main.async {
-    //                self.emptyView.alpha = 0
-    //                //self.tableView?.dataSource = self
-    //                self.tableView?.alpha = 1
-    //                self.collectView?.alpha = 0
-    //                self.tableView?.reloadData()
-    //            }
-    //
-    //        }
-    //
-    //    }
     
-    //    func emtyMatchView() {
-    //        if matchList.count <= 0 {
-    //            tableView?.alpha = 0
-    //            collectView?.alpha = 0
-    //            emptyView.alpha = 1
-    //        }else{
-    //            DispatchQueue.main.async {
-    //                self.emptyView.alpha = 0
-    //                self.tableView?.dataSource = self.matchDataSource
-    //                self.tableView?.alpha = 1
-    //                self.collectView?.alpha = 0
-    //                self.tableView?.reloadData()
-    //            }
-    //
-    //        }
-    //
-    //    }
-    
-    //    func emtyTeamView() {
-    //        if teamList.count <= 0 {
-    //            tableView?.alpha = 0
-    //            collectView?.alpha = 0
-    //            emptyView.alpha = 1
-    //        }else{
-    //            self.emptyView.alpha = 0
-    //            //self.collectView?.dataSource = self
-    //            self.tableView?.alpha = 0
-    //            self.collectView?.alpha = 1
-    //        }
-    //    }
 }
 
 

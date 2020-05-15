@@ -11,14 +11,15 @@ import UIKit
 import TableViewReloadAnimation
 import RxSwift
 import RxCocoa
-
+import RealmSwift
 
 class CompetitionViewController: BaseTableViewController {
-
+    
     @IBOutlet weak var searchBar: UISearchBar!
     var  competitionViewModel :ICompetitonViewModel?
     var currentCompetitionArray = CompetitionsModel.competitionlist
-    var presenter: CompetitionPresenter!
+    var presenter: Competition!
+    var competitionArray = [Competition]()
     var requestPortfolioDetailNavigation: ((_ competition: competition)-> Void)?
     override func getViewModel() -> BaseViewModel {
         return self.competitionViewModel as! BaseViewModel
@@ -26,29 +27,48 @@ class CompetitionViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(Realm.Configuration.defaultConfiguration.fileURL!)
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
         cellID = "CompetitionTableViewCell"
         searchBar.placeholder = "Search For Competitions Name"
         competitionViewModel?.viewDidLoad1()
     }
-
+    
     override func doLoadData(callback: @escaping (([Any]) -> Void)) {
+       
         competitionViewModel?.competitionRespond()
-            competitionViewModel?.competitionResponse.subscribe({ (competition) in
-                if let items = competition.element {
-                    self.currentCompetitionArray = items
-                     callback(items)
-                    self.itemsToRender = self.currentCompetitionArray
+        competitionViewModel?.competitionResponse.subscribe({ (competitions) in
+            if let items = competitions.element {
+                let id = [2000,2001,2002,2003,2013,2014,2015,2016,2017,2018,2019,2021]
+                for  id in id {
+                    for item in items{
+                        if item.id == id {
+                            let tierOneCompetition = Competition()
+                            if let season = item.currentSeason?.season, let name = item.competitionName, let id = item.id {
+                                tierOneCompetition.competitionName = name
+                                tierOneCompetition.id = id
+                                tierOneCompetition.Season = season
+                                print(tierOneCompetition.competitionName)
+                            }
+                            
+                            self.competitionArray.append(tierOneCompetition)
+                        }
+                    }
                 }
-            }).disposed(by: disposeBag)
-      
-     }
+                
+                callback(self.competitionArray)
+                //self.currentCompetitionArray = items
+                
+                //self.itemsToRender = self.currentCompetitionArray
+            }
+        }).disposed(by: disposeBag)
+        
+    }
     
     
     override func sendId(selectedIndex: Int) {
-        let competitions =  itemsToRender[selectedIndex] as? competition
-        let _ = StoryBoardsID.competition.navigationProvider.requestNavigation(to: ViewControllerID.showDetail.rawValue, from: self, requestData: competitions?.id, requestDataToo: competitions?.currentSeason?.currentMatchday)
-        }
+        presenter =  competitionArray[selectedIndex]
+        let _ = StoryBoardsID.competition.navigationProvider.requestNavigation(to: ViewControllerID.showDetail.rawValue, from: self, requestData: presenter)
+    }
     
     
     

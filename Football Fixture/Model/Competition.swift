@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import RealmSwift
+//import RealmSwift
  // A Realm Object that represents a competition
- class Competition: Object {
-     @objc dynamic var id: Int = 0
-     @objc dynamic var competitionName: String = ""
-     @objc dynamic var Season: String = ""
+class Competition: NSObject {
+      var id: Int = Int()
+      var competitionName: String = ""
+      var Season: String = ""
  }
 
 

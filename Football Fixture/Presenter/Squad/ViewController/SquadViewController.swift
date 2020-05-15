@@ -42,8 +42,8 @@ class SquadViewController: BaseTableViewController {
         let squad = presentRequestData as! Teams
         self.navigationItem.title = squad.name
         if let teamCrest = squad.crestUrl {
-            crestImage.converUrlToImage(url: teamCrest)
-            crestImage.converUrlToSvgImage(url: teamCrest)
+            //crestImage.converUrlToImage(url: teamCrest)
+            //crestImage.converUrlToSvgImage(url: teamCrest)
         }
     }
     

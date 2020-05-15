@@ -13,7 +13,7 @@ import RxCocoa
 class TodaysFixturesViewController: BaseTableViewController {
     
     var todaysFixturesViewModel: ITodaysFixturesViewModel?
-    var presenter: TodaysFixturesPresenter!
+    //var presenter: TodaysFixturesPresenter!
     override func getViewModel() -> BaseViewModel {
         return self.todaysFixturesViewModel as! BaseViewModel
     }
@@ -21,20 +21,21 @@ class TodaysFixturesViewController: BaseTableViewController {
         super.viewDidLoad()
         cellID = "customMessageCell"
         todaysFixturesViewModel?.viewDidLoad1()
-        
+        tableView?.rowHeight = 150
     }
     override func doLoadData(callback: @escaping (([Any]) -> Void)) {
         todaysFixturesViewModel?.matchRespond()
         todaysFixturesViewModel?.matchResponse.subscribe({ (match) in
             if let items = match.element {
+                print("This is the data ",items)
                 callback(items)
             }
         }).disposed(by: disposeBag)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tableView?.register(UINib(nibName: "FixturesTableViewCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.tableView?.register(UINib(nibName: "FixturesTableViewCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
+//    }
     
 }
 

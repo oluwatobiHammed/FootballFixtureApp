@@ -43,7 +43,7 @@ class DefaultPreLoader: PreLoader {
             self.loaderAnimationView.alpha = 0
             }
         }) { (_) in
-              DispatchQueue.main.async {
+              DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.loaderAnimationView.removeFromSuperview()
             }
         }

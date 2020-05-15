@@ -9,11 +9,10 @@
 import Foundation
 
 struct MatchResults: Codable {
-    let results: [Match]?
+    let results: [Matches]?
     
     enum CodingKeys: String, CodingKey{
         case results = "matches"
-        
         
     }
 }

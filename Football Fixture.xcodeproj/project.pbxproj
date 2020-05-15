@@ -164,6 +164,7 @@
 		CED0170323F0780100373C70 /* AreaImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0170223F0780100373C70 /* AreaImpl.swift */; };
 		CED0170523F0790800373C70 /* AreaResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0170423F0790800373C70 /* AreaResult.swift */; };
 		CED0170C23F14D9B00373C70 /* AreasModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED0170B23F14D9B00373C70 /* AreasModel.swift */; };
+		CED4FB33246ED430006BA130 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4FB32246ED42F006BA130 /* DateController.swift */; };
 		CED51EAB241113E200A606D9 /* SquadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED51EAA241113E200A606D9 /* SquadViewModel.swift */; };
 		CED8A55C231C6944000E296A /* SquadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED8A55B231C6944000E296A /* SquadViewController.swift */; };
 		CEE7C80422FD6D6B0007C365 /* currentSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE7C80322FD6D6B0007C365 /* currentSeason.swift */; };
@@ -418,6 +419,7 @@
 		CED0170223F0780100373C70 /* AreaImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaImpl.swift; sourceTree = "<group>"; };
 		CED0170423F0790800373C70 /* AreaResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaResult.swift; sourceTree = "<group>"; };
 		CED0170B23F14D9B00373C70 /* AreasModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreasModel.swift; sourceTree = "<group>"; };
+		CED4FB32246ED42F006BA130 /* DateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		CED51EAA241113E200A606D9 /* SquadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadViewModel.swift; sourceTree = "<group>"; };
 		CED8A55B231C6944000E296A /* SquadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadViewController.swift; sourceTree = "<group>"; };
 		CEE7C80322FD6D6B0007C365 /* currentSeason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = currentSeason.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 				CEC13C57245E5D53002C2588 /* NavigationViewController.swift */,
 				CEC13C59245EC997002C2588 /* SummaryInfomation.swift */,
 				CEC13C5B245EED18002C2588 /* UIImage+Extention.swift */,
+				CED4FB32246ED42F006BA130 /* DateController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1596,6 +1599,7 @@
 				CEF4C65E243E636B009C773E /* ICompetitionsRemote.swift in Sources */,
 				CE862DD5244F5F7700A701AA /* CustomNoDataAlert.swift in Sources */,
 				CE67819822FCCF600046F816 /* competition.swift in Sources */,
+				CED4FB33246ED430006BA130 /* DateController.swift in Sources */,
 				CE67819A22FCDC2C0046F816 /* CompetitionsModel.swift in Sources */,
 				CEF4C66C243E689D009C773E /* IMatchesRemote.swift in Sources */,
 				CEF4C66B243E689D009C773E /* MatchImplRemoteImpl.swift in Sources */,

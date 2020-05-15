@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 class MatchesDataSource: NSObject, UITableViewDataSource  {
     
-    var matchesList = [Match]()
+    var matchesList = [Matches]()
     
-    init(matchesList: [Match]) {
+    init(matchesList: [Matches]) {
         self.matchesList = matchesList
         super.init()
     }
@@ -34,4 +34,12 @@ class MatchesDataSource: NSObject, UITableViewDataSource  {
     
 }
 
+extension MatchesDataSource: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? FixturesTableViewCell {
+            cell.data = matchesList[indexPath.row]
+        }
+    }
+    
+}
 

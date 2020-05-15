@@ -9,10 +9,11 @@
 import Foundation
 import RealmSwift
 
-@objcMembers class competition:  Object, Codable {
+@objcMembers class competition: Codable {
    public dynamic var id: Int?
    public dynamic var competitionName: String?
    public dynamic var currentSeason: currentSeason?
+   public dynamic var plan: String?
 
     enum CodingKeys: String, CodingKey {
         case id

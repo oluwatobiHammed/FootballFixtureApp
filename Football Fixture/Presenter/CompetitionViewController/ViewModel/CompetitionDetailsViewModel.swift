@@ -12,7 +12,7 @@ import RxCocoa
 
 class CompetitionDetailsViewModel: BaseViewModel, ICompetitionDetailsViewModel {
     var teamResponse: PublishSubject<[Teams]> = PublishSubject()
-    var fixtureResponse: PublishSubject<[Match]> = PublishSubject()
+    var fixtureResponse: PublishSubject<[Matches]> = PublishSubject()
     var tableResponse: PublishSubject<[standings]> = PublishSubject()
     var dataExist: PublishSubject<Bool> = PublishSubject()
     let tableRespon: ITableRemote

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 class TeamDataSource: NSObject, UICollectionViewDataSource {
- 
+    
     let viewController: CompetitionDetailsTableViewPresenter?
     var teamList = [Teams]()
     init(teamList: [Teams],viewController: CompetitionDetailsTableViewPresenter) {
@@ -20,9 +20,9 @@ class TeamDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return teamList.count
-     }
-     
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamcell", for: indexPath) as! TeamsCollectionViewCell
         let team = teamList[indexPath.row]
         cell.team = team
@@ -30,9 +30,8 @@ class TeamDataSource: NSObject, UICollectionViewDataSource {
             let _ = StoryBoardsID.competition.navigationProvider.requestNavigation(to: ViewControllerID.squadVC.rawValue, from: self.viewController, requestData: team, mode: .modal)
         }
         return cell
-     }
     }
-
-protocol TableViewInsideCollectionViewDelegate {
-    func cellTaped(data:IndexPath)
 }
+
+
+

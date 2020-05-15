@@ -37,9 +37,9 @@ extension Date {
     static func dateFormatter (string: String) -> String {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat =  "yyyy-MM-dd"
-        let showDate = inputFormatter.date(from: string)
+        let showDate = inputFormatter.date(from: string) ?? Date()
         inputFormatter.dateFormat =  "dd/MM/yyyy"
-        let resultString = inputFormatter.string(from: showDate!)
+        let resultString = inputFormatter.string(from: showDate)
         return resultString
     }
 }

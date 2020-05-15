@@ -8,24 +8,26 @@
 
 import Foundation
 
-struct Match: Codable, Equatable {
-    let status: String?
-    let season: season?
-    let homeTeam: homeTeam?
-    let awayTeam: awayTeam?
-    let score: Score?
-    let lastUpdated: String
-   
-    
-    
-    enum CodingKeys: String, CodingKey {
-        case season
-        case awayTeam
-        case homeTeam
-        case score
-        case status
-        case lastUpdated
-    }
-    
-    
+
+struct Matches:Codable {
+    let utcDate:Date?
+    let status:String?
+    let homeTeam:FixtureTeam?
+    let awayTeam:FixtureTeam?
+    let score:Score?
 }
+
+struct FixtureTeam:Codable {
+    let id:Int?
+    let name:String?
+}
+
+struct Score:Codable{
+    let fullTime:ScoreTime
+}
+
+struct ScoreTime:Codable{
+    let homeTeam:Int?
+    let awayTeam:Int?
+}
+//protocol FeedItems {}

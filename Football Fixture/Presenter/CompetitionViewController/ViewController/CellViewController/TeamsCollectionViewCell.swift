@@ -7,20 +7,25 @@
 //
 
 import UIKit
+import WebKit
+
 class TeamsCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var imageView1: UIImageView!
     @IBOutlet weak var teamLabel: UILabel!
-
+    @IBOutlet weak var logoWebView: WKWebView!
+    
     var team:  Teams! {
         didSet{
             if let teamName = team.name {
                 teamLabel.text = teamName
             }
             if let imageUrl = team.crestUrl {
-                imageView.converUrlToImage(url: imageUrl)
-                imageView1.converUrlToSvgImage(url: imageUrl)
+                logoWebView.displayTeamImages(url: imageUrl)
+                logoWebView.scrollView.isScrollEnabled = false
+            }else {
+                print("no Image")
+                //imageView.image = UIImage(named: "icons8-soccer-ball-100")
             }
         }
     }

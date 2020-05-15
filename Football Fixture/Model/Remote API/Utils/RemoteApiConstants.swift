@@ -27,17 +27,21 @@ class RemoteApiConstants {
             case .getArea:
                 return     Endpoints.base + "/areas/"
             case .getCompetitions:
-                return     Endpoints.base  + "/competitions/"
+                let compititon =  Endpoints.base  + "/competitions"
+                return compititon.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             case .getMatches:
-                return     Endpoints.base  + "/competitions/2021/matches?matchday=1"
+                var safeUrl:String{
+                    return Endpoints.base  + "/matches?dateFrom=\(DateController().fromDate)&dateTo=\(DateController().toDate)"
+                }
+                return safeUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             case.getTable(let id):
-                return     Endpoints.base  + "/competitions/\(id)/standings"
+                return     Endpoints.base  + "/competitions/\(id)/standings?standingType=TOTAL"
             case.getTeam(let id):
                 return     Endpoints.base  + "/competitions/\(id)/teams"
             case .getOneTeam(let id):
                     return Endpoints.base  + "/teams/\(id)"
             case .getCompetitionMatches(let id):
-                return     Endpoints.base  + "/competitions/\(id)/matches?matchday=1"
+                return     Endpoints.base  + "/competitions/\(id)/matches?status=SCHEDULED"
             case .getPlayer(let id):
                 return     Endpoints.base + "/players/\(id)"
             }

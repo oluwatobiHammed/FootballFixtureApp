@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct season: Codable, Equatable {
-     let currentMatchday: Int
-}
+//struct season: Codable, Equatable {
+//     let currentMatchday: Int
+//}

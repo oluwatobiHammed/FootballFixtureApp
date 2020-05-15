@@ -12,6 +12,8 @@ class BaseTableViewController: FootBallFixtureBaseViewController {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var collectionView: UICollectionView?
     let rc = UIRefreshControl()
+    var sections = [FixtureSection]()
+    var matches:[Matches] = []
     var itemsToRender: [Any] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -28,17 +30,15 @@ class BaseTableViewController: FootBallFixtureBaseViewController {
     }
     
     func prepareTableView(){
-        
         rc.tintColor = .systemBlue
         rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         self.tableView?.dataSource = self
         self.tableView?.delegate = self
-        self.tableView?.register(CustomFixtureViewCell.self, forCellReuseIdentifier: cellID)
         self.doLoadData(callback: self.onNewDataLoaded)
     }
     
     func prepareCollectionView() {
-        let itemsize = UIScreen.main.bounds.width/3 - 3
+        let itemsize = UIScreen.main.bounds.width/3.5 - 2.5
         let layOut = UICollectionViewFlowLayout()
         layOut.sectionInset = UIEdgeInsets(top: 0, left: 2, bottom: 10, right: 2)
         layOut.itemSize = CGSize(width: itemsize, height: itemsize)
@@ -55,12 +55,26 @@ class BaseTableViewController: FootBallFixtureBaseViewController {
         
     }
     fileprivate func onNewDataLoaded(result: [Any]) {
-        print("This is the base class :", result)
         self.itemsToRender.removeAll()
         self.itemsToRender.append(contentsOf: result)
+        if let result = result as? [Matches]{
+            for match in result {
+                self.matches.append(match)
+                let groups = Dictionary(grouping: self.matches, by: {
+                    match in
+                    dateToDay(match.utcDate!)
+                })
+                self.sections = groups.map(FixtureSection.init).sorted(by: { $0.title < $1.title })
+                print("This is the section ",sections)
+                DispatchQueue.main.async {
+                    self.tableView?.reloadData()
+                        }
+            }
+            
+        }
+        
     }
     func sendId(selectedIndex: Int) {
-        
     }
     func updateContentOfCell(cell: UITableViewCell, data: Any) {
         

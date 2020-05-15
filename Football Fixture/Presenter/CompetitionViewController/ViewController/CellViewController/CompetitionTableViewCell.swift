@@ -10,7 +10,7 @@ import UIKit
 
 class CompetitionTableViewCell: UITableViewCell {
     let competitioCellModel = CompetitionCellViewModel()
-    var data: competition! {
+    var data: Competition! {
         didSet {
             competitioCellModel.bindProductToCell(cell: self, competition: data)
         }

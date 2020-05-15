@@ -9,5 +9,5 @@
 import Foundation
 
 class MatchesModel {
-    static var matchesList = [Match]()
+    static var matchesList = [Matches]()
 }

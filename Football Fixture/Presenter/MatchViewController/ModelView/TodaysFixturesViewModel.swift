@@ -12,7 +12,7 @@ import RxCocoa
 
 class TodaysFixturesViewModel: BaseViewModel, ITodaysFixturesViewModel {
     
-    var matchResponse: PublishSubject<[Match]> = PublishSubject()
+    var matchResponse: PublishSubject<[Matches]> = PublishSubject()
     let matchRespo: IMatchesRemote
     
     init(matchRespo: IMatchesRemote) {

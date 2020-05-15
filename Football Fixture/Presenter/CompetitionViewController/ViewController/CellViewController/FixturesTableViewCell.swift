@@ -20,7 +20,7 @@ class FixturesTableViewCell: UITableViewCell {
      
       let matchCellModel = MatchCellViewModel()
      
-       var data: Match! {
+       var data: Matches! {
            didSet {
              matchCellModel.bindProductToCell(cell: self, match: data)
            }
