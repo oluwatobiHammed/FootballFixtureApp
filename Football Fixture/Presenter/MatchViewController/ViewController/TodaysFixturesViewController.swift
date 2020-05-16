@@ -27,15 +27,10 @@ class TodaysFixturesViewController: BaseTableViewController {
         todaysFixturesViewModel?.matchRespond()
         todaysFixturesViewModel?.matchResponse.subscribe({ (match) in
             if let items = match.element {
-                print("This is the data ",items)
                 callback(items)
             }
         }).disposed(by: disposeBag)
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.tableView?.register(UINib(nibName: "FixturesTableViewCell", bundle: nil), forCellReuseIdentifier: "customMessageCell")
-//    }
     
 }
 

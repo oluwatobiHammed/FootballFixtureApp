@@ -41,7 +41,10 @@ class RemoteApiConstants {
             case .getOneTeam(let id):
                     return Endpoints.base  + "/teams/\(id)"
             case .getCompetitionMatches(let id):
-                return     Endpoints.base  + "/competitions/\(id)/matches?status=SCHEDULED"
+                var safeUrl: String{
+                    return Endpoints.base  + "/competitions/\(id)/matches?status=SCHEDULED"
+                }
+                return safeUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             case .getPlayer(let id):
                 return     Endpoints.base + "/players/\(id)"
             }

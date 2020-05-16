@@ -1,8 +1,5 @@
 PODS:
-  - CocoaLumberjack (3.6.1):
-    - CocoaLumberjack/Core (= 3.6.1)
-  - CocoaLumberjack/Core (3.6.1)
-  - lottie-ios (3.1.6)
+  - lottie-ios (3.1.8)
   - Realm (4.3.2):
     - Realm/Headers (= 4.3.2)
   - Realm/Headers (4.3.2)
@@ -15,8 +12,6 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - SnapKit (5.0.1)
-  - SVGKit (2.1.0):
-    - CocoaLumberjack (~> 3.0)
   - Swinject (2.7.1)
   - SwinjectStoryboard (2.2.0):
     - Swinject (~> 2.6)
@@ -28,14 +23,12 @@ DEPENDENCIES:
   - RxCocoa (~> 5)
   - RxSwift (~> 5)
   - SnapKit (~> 5.0.0)
-  - SVGKit (from `https://github.com/SVGKit/SVGKit.git`, branch `3.x`)
   - Swinject
   - SwinjectStoryboard
   - TableViewReloadAnimation (~> 0.0.5)
 
 SPEC REPOS:
   trunk:
-    - CocoaLumberjack
     - lottie-ios
     - Realm
     - RealmSwift
@@ -47,30 +40,18 @@ SPEC REPOS:
     - SwinjectStoryboard
     - TableViewReloadAnimation
 
-EXTERNAL SOURCES:
-  SVGKit:
-    :branch: 3.x
-    :git: https://github.com/SVGKit/SVGKit.git
-
-CHECKOUT OPTIONS:
-  SVGKit:
-    :commit: 8560ef56bd61e34d5cd8d9739954f9765e3ac794
-    :git: https://github.com/SVGKit/SVGKit.git
-
 SPEC CHECKSUMS:
-  CocoaLumberjack: b17ae15142558d08bbacf69775fa10c4abbebcc9
-  lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
   Realm: 5e92902e2875dff4bb0fd02f67bb737c3d5db2bc
   RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SVGKit: 8a2fc74258bdb2abb54d3b65f3dd68b0277a9c4d
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   SwinjectStoryboard: 32512ef16c2b0ff5b8f823b23539c4a50f6d3383
   TableViewReloadAnimation: f3a4c4048efbc56331be98075f26a2e533a14c16
 
-PODFILE CHECKSUM: 37d002929e0469c7a4a331908cf2d5dab26b191e
+PODFILE CHECKSUM: 5545f0d31d8a635e428ad3787101f9f047bcf310
 
 COCOAPODS: 1.9.1

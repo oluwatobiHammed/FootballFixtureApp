@@ -15,11 +15,10 @@ class TableRemoteImpl: BaseRemoteApiImpl,ITableRemote {
     static var shared = TableRemoteImpl(config: .default)
         lazy var requestObservable = BaseRemoteApiImpl(config: .default)
         func getTable(competitionId: Int) -> Observable<ApiResponse<StandingsResult>> {
-            //print("competition ID", competitionId)
             return requestObservable.makeAPIRequestObservable(responseType: ApiResponse<StandingsResult>.self, url:RemoteApiConstants.Endpoints.getTable(competitionId).url, method: .Get, params: [:])
         }
     
-    func getMatch(competitionId: Int, matchDay: Int) -> Observable<ApiResponse<MatchResults>> {
+    func getMatch(competitionId: Int) -> Observable<ApiResponse<MatchResults>> {
         return requestObservable.makeAPIRequestObservable(responseType: ApiResponse<MatchResults>.self, url:RemoteApiConstants.Endpoints.getCompetitionMatches(competitionId).url, method: .Get, params: [:])
         }
     

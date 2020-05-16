@@ -30,4 +30,3 @@ struct ScoreTime:Codable{
     let homeTeam:Int?
     let awayTeam:Int?
 }
-//protocol FeedItems {}

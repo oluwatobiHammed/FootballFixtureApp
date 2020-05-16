@@ -17,5 +17,5 @@ protocol ICompetitionDetailsViewModel {
     func viewDidLoad1()
     func updateTable(getID competitionID: Int)
     func updateTeam(getID competitionID: Int)
-    func fixtureRespond(getID competitionID: Int, getMD matchDay: Int)
+    func fixtureRespond(getID competitionID: Int)
 }

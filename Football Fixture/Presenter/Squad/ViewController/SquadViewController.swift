@@ -11,7 +11,6 @@ import UIKit
 import TableViewReloadAnimation
 import RxSwift
 import RxCocoa
-import SVGKit
 
 class SquadViewController: BaseTableViewController {
     //var squad: Teams?

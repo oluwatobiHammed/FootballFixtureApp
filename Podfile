@@ -6,7 +6,7 @@
   use_frameworks!
 
   # Pods for Football Fixture
-    pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
+    #pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
     pod 'TableViewReloadAnimation', '~> 0.0.5'
     pod 'lottie-ios', '~> 3.1.2'
     pod 'Swinject'

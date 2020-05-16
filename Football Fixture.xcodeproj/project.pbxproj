@@ -28,7 +28,6 @@
 		CE57314C23F3F3C600A75056 /* Lineup.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57314B23F3F3C600A75056 /* Lineup.swift */; };
 		CE57314E23F3F58F00A75056 /* Bench.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE57314D23F3F58F00A75056 /* Bench.swift */; };
 		CE5CF60B2300AEB5005CB87A /* CustomFixtureViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5CF6092300AEB5005CB87A /* CustomFixtureViewCell.swift */; };
-		CE5CF60E23017267005CB87A /* FixturesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE5CF60A2300AEB5005CB87A /* FixturesTableViewCell.xib */; };
 		CE5CF610230219CF005CB87A /* Aaargh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE5CF60F230219CF005CB87A /* Aaargh.ttf */; };
 		CE5CF61223021B71005CB87A /* abel-regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE5CF61123021B71005CB87A /* abel-regular.ttf */; };
 		CE5CF61523021BDB005CB87A /* AftaSansThin-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CE5CF61323021BDB005CB87A /* AftaSansThin-Italic.otf */; };
@@ -283,7 +282,6 @@
 		CE57314B23F3F3C600A75056 /* Lineup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lineup.swift; sourceTree = "<group>"; };
 		CE57314D23F3F58F00A75056 /* Bench.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bench.swift; sourceTree = "<group>"; };
 		CE5CF6092300AEB5005CB87A /* CustomFixtureViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFixtureViewCell.swift; sourceTree = "<group>"; };
-		CE5CF60A2300AEB5005CB87A /* FixturesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FixturesTableViewCell.xib; sourceTree = "<group>"; };
 		CE5CF60F230219CF005CB87A /* Aaargh.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aaargh.ttf; sourceTree = "<group>"; };
 		CE5CF61123021B71005CB87A /* abel-regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "abel-regular.ttf"; sourceTree = "<group>"; };
 		CE5CF61323021BDB005CB87A /* AftaSansThin-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AftaSansThin-Italic.otf"; sourceTree = "<group>"; };
@@ -869,7 +867,6 @@
 			isa = PBXGroup;
 			children = (
 				CEC13C49245E4D52002C2588 /* TodayMatch.storyboard */,
-				CE5CF60A2300AEB5005CB87A /* FixturesTableViewCell.xib */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -1201,7 +1198,7 @@
 				CE252C5222FC7BB0001530A4 /* Frameworks */,
 				CE252C5322FC7BB0001530A4 /* Resources */,
 				CEC28926239D24420035B3A7 /* Embed Frameworks */,
-				24BBC9E1AAAB64E2C1AF68FF /* [CP] Embed Pods Frameworks */,
+				ED1A836D3FE0E21A558CE765 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1308,7 +1305,6 @@
 				CE5CF68123021EDE005CB87A /* BarlowCondensed-SemiBold.otf in Resources */,
 				CEC13C47245E4AD4002C2588 /* League.storyboard in Resources */,
 				CEF4C6AD243F6BC3009C773E /* 18451-ghcalvo.json in Resources */,
-				CE5CF60E23017267005CB87A /* FixturesTableViewCell.xib in Resources */,
 				CE5CF62123021D2A005CB87A /* Archivo-Regular.ttf in Resources */,
 				CE5CF67E23021EDE005CB87A /* BarlowCondensed-LightItalic.otf in Resources */,
 				CE5CF67F23021EDE005CB87A /* BarlowCondensed-MediumItalic.otf in Resources */,
@@ -1422,23 +1418,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		24BBC9E1AAAB64E2C1AF68FF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Football Fixture/Pods-Football Fixture-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Football Fixture/Pods-Football Fixture-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Football Fixture/Pods-Football Fixture-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		692253BAF34C5C889C0A3027 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1481,6 +1460,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED1A836D3FE0E21A558CE765 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Football Fixture/Pods-Football Fixture-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Football Fixture/Pods-Football Fixture-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Football Fixture/Pods-Football Fixture-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

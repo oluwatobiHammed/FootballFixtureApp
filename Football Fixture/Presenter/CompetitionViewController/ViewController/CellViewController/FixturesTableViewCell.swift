@@ -10,20 +10,29 @@ import UIKit
 
 class FixturesTableViewCell: UITableViewCell {
 
+  @IBOutlet weak var statusLabel: UILabel!
+  @IBOutlet weak var statusView: UIView!
+  @IBOutlet weak var matchTimeLabel: UILabel!
   @IBOutlet weak var homeTeamLabel: UILabel!
-     @IBOutlet weak var awayTeamLabel: UILabel!
-     @IBOutlet weak var homeTeamScoreLabel: UILabel!
-     @IBOutlet weak var awayTeamScoreLabel: UILabel!
-     @IBOutlet weak var timeDisplayLabel: UILabel!
-     @IBOutlet weak var matchDayLabel: UILabel!
-     @IBOutlet weak var lastUpdatedLabel: UILabel!
+  @IBOutlet weak var awayTeamLabel: UILabel!
+  @IBOutlet weak var homeScoreLabel: UILabel!
+  @IBOutlet weak var awayScoreLabel: UILabel!
+  @IBOutlet weak var cellView: UIView!
      
       let matchCellModel = MatchCellViewModel()
      
-       var data: Matches! {
+       var data: Matches? {
            didSet {
-             matchCellModel.bindProductToCell(cell: self, match: data)
+            if let data = data {
+               matchCellModel.bindProductToCell(cell: self, match: data)
+            }
+            
            }
+       }
+    
+    func setUpCellColor(color:UIColor){
+            statusView.backgroundColor = color
+            cellView.layer.borderColor = color.cgColor
        }
 
      

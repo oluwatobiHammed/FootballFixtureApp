@@ -65,7 +65,6 @@ class BaseTableViewController: FootBallFixtureBaseViewController {
                     dateToDay(match.utcDate!)
                 })
                 self.sections = groups.map(FixtureSection.init).sorted(by: { $0.title < $1.title })
-                print("This is the section ",sections)
                 DispatchQueue.main.async {
                     self.tableView?.reloadData()
                         }

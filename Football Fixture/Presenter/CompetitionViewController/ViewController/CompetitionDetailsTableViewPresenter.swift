@@ -75,7 +75,7 @@ class CompetitionDetailsTableViewPresenter: BaseTableViewController {
             
         }).disposed(by: disposeBag)
         
-        totalViewModel?.fixtureRespond(getID:data!.id,getMD: 1)
+        totalViewModel?.fixtureRespond(getID:data!.id)
         totalViewModel?.updateTeam(getID:data!.id)
         totalViewModel?.updateTable(getID: data!.id)
         
@@ -86,11 +86,21 @@ class CompetitionDetailsTableViewPresenter: BaseTableViewController {
     private func refreshData() {
         totalViewModel?.fixtureResponse.subscribe({ [weak self] (match) in
             if let matches = match.element {
-                self?.matchDataSource = MatchesDataSource(matchesList: matches)
-                self?.matchList = matches
-                DispatchQueue.main.async {
-                    self?.tableView?.reloadData()
-                }
+                print("This is the competition fixtures", matches)
+                //self?.matchList = matches
+                
+                for match in matches {
+                    self?.matchList.append(match)
+                    let groups = Dictionary(grouping: self!.matchList, by: {
+                               match in
+                               dateToDay(match.utcDate!)
+                           })
+                    self?.sections = groups.map(FixtureSection.init).sorted(by: { $0.title < $1.title })
+                    self?.matchDataSource = MatchesDataSource(matchesList: matches, sections: self!.sections)
+                           DispatchQueue.main.async {
+                            self?.tableView?.reloadData()
+                                   }
+                       }
             }
         }).disposed(by: disposeBag)
         
@@ -145,7 +155,6 @@ extension CompetitionDetailsTableViewPresenter{
             }
         //emtyTableView()
         case 1:
-            tableView?.alpha = 1
             collectionView?.alpha = 0
             tableView?.dataSource = matchDataSource
             DispatchQueue.main.async {

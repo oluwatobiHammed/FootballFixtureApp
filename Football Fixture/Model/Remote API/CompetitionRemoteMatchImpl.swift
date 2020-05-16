@@ -14,7 +14,7 @@ class CompetitionRemoteMatchImpl: BaseRemoteApiImpl, ICompetitionMatchRemote {
     var requestID: competition?
     static var shared = CompetitionRemoteMatchImpl(config: .default)
        lazy var requestObservable = BaseRemoteApiImpl(config: .default)
-       func getMatch(competitionId: Int, matchDay: Int) -> Observable<ApiResponse<MatchResults>> {
+       func getMatch(competitionId: Int) -> Observable<ApiResponse<MatchResults>> {
         return requestObservable.makeAPIRequestObservable(responseType: ApiResponse<MatchResults>.self, url:RemoteApiConstants.Endpoints.getCompetitionMatches(competitionId).url, method: .Get, params: [:])
        }
 }

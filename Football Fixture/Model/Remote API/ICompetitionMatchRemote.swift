@@ -10,5 +10,5 @@ import Foundation
 import RxSwift
 
 protocol ICompetitionMatchRemote {
-    func getMatch(competitionId: Int, matchDay: Int) -> Observable<ApiResponse<MatchResults>>
+    func getMatch(competitionId: Int) -> Observable<ApiResponse<MatchResults>>
 }

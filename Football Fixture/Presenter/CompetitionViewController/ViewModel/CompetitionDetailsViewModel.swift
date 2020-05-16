@@ -49,9 +49,9 @@ class CompetitionDetailsViewModel: BaseViewModel, ICompetitionDetailsViewModel {
             }).disposed(by: disposeBag)
     }
     
-    func fixtureRespond(getID competitionID: Int, getMD matchDay: Int) {
+    func fixtureRespond(getID competitionID: Int) {
         self.isLoading.onNext(true)
-        tableRespon.getMatch(competitionId: competitionID, matchDay: matchDay).subscribe(onNext: { [weak self] res in
+        tableRespon.getMatch(competitionId: competitionID).subscribe(onNext: { [weak self] res in
             self?.isLoading.onNext(false)
             if let res = res.data?.results {
                 self?.fixtureResponse.onNext(res)

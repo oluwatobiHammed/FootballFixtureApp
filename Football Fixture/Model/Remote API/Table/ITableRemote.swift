@@ -11,6 +11,6 @@ import RxSwift
 
 protocol ITableRemote {
        func getTable(competitionId: Int) -> Observable<ApiResponse<StandingsResult>>
-        func getMatch(competitionId: Int, matchDay: Int) -> Observable<ApiResponse<MatchResults>>
+        func getMatch(competitionId: Int) -> Observable<ApiResponse<MatchResults>>
     func getTeam(competitionId: Int) -> Observable<ApiResponse<TeamResults>>
 }

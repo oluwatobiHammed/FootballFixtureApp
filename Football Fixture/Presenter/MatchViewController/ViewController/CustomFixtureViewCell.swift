@@ -18,13 +18,15 @@ class CustomFixtureViewCell: UITableViewCell {
     @IBOutlet weak var awayTeamLabel: UILabel!
     @IBOutlet weak var homeScoreLabel: UILabel!
     @IBOutlet weak var awayScoreLabel: UILabel!
-    
     @IBOutlet weak var cellView: UIView!
     let matchCellModel = MatchCellViewModel()
   
-    var data: Matches! {
+    var data: Matches? {
         didSet {
-          matchCellModel.bindProductToCell(cell: self, match: data)
+            if let data = data {
+               matchCellModel.bindProductToCell(cell: self, match: data)
+            }
+          
         }
     }
     
