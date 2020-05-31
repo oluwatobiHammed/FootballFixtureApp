@@ -64,7 +64,6 @@ class CompetitionDetailsViewModel: BaseViewModel, ICompetitionDetailsViewModel {
                         dateToDay(match.utcDate!)
                     })
                     sections = groups.map(FixtureSection.init).sorted(by: { $0.title < $1.title })
-                    //print("This is the sections", sections)
                     
                 }
                 self?.fixtureResponse.onNext(sections)

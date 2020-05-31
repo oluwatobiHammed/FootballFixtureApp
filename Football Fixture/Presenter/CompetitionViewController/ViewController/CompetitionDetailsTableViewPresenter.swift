@@ -27,11 +27,6 @@ class CompetitionDetailsTableViewPresenter: BaseTableViewController {
             data = presentRequestData as? Competition
         }
     }
-    override var presentRequestDataToo: Any? {
-        didSet {
-            
-        }
-    }
     
     var totalViewModel: ICompetitionDetailsViewModel?
     let titles = "Table ,Fixtures, Team"
@@ -43,10 +38,7 @@ class CompetitionDetailsTableViewPresenter: BaseTableViewController {
         return self.totalViewModel as! BaseViewModel
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //emtyTableView()
-    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ssss()
@@ -63,14 +55,8 @@ class CompetitionDetailsTableViewPresenter: BaseTableViewController {
     override func doLoadData(callback: @escaping (([Any]) -> Void)) {
         
         totalViewModel?.tableResponse.bind(onNext: {(standing) in
-            if standing.isEmpty {
-                print("It is empty")
-            }else{
-                if let tables = standing[0].table{
-                    callback(tables)
-                }else {
-                    print("No data here")
-                }
+            if let tables = standing[0].table{
+                callback(tables)
             }
             
         }).disposed(by: disposeBag)
@@ -143,7 +129,6 @@ extension CompetitionDetailsTableViewPresenter{
             DispatchQueue.main.async {
                 self.tableView?.reloadData()
             }
-        //emtyTableView()
         case 1:
             tableView?.alpha = 1
             collectionView?.alpha = 0

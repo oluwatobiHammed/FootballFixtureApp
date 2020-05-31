@@ -16,7 +16,7 @@ class CompetitionViewController: BaseTableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     var  competitionViewModel :ICompetitonViewModel?
-    var currentCompetitionArray = CompetitionsModel.competitionlist
+    var currentCompetitionArray = [Competition]()
     var presenter: Competition!
     var requestPortfolioDetailNavigation: ((_ competition: competition)-> Void)?
     override func getViewModel() -> BaseViewModel {
@@ -36,6 +36,7 @@ class CompetitionViewController: BaseTableViewController {
         competitionViewModel?.competitionRespond()
         competitionViewModel?.competitionResponse.subscribe({ (competitions) in
             if let items = competitions.element {
+                self.currentCompetitionArray = items
                 callback(items)
             }
         }).disposed(by: disposeBag)
@@ -62,7 +63,7 @@ extension CompetitionViewController: UISearchBarDelegate{
             
         }
         itemsToRender = currentCompetitionArray.filter({ competition -> Bool in
-            (competition.competitionName?.lowercased().contains(searchText.lowercased()))!
+            (competition.competitionName.lowercased().contains(searchText.lowercased()))
         })
     }
     
