@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 protocol ICompetitonViewModel {
-    var competitionResponse: PublishSubject<[competition]> { get }
+    var competitionResponse: PublishSubject<[Competition]> { get }
     func viewDidLoad1()
     func competitionRespond()
     func saveCompetitionsDetails(competitions: competition)

@@ -13,7 +13,7 @@ import RxCocoa
 class TodaysFixturesViewController: BaseTableViewController {
     
     var todaysFixturesViewModel: ITodaysFixturesViewModel?
-    //var presenter: TodaysFixturesPresenter!
+    var matches = [Matches]()
     override func getViewModel() -> BaseViewModel {
         return self.todaysFixturesViewModel as! BaseViewModel
     }

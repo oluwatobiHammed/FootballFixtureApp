@@ -12,7 +12,7 @@ import RxCocoa
 class CompetitionRemoteImpl:  ICompetitionsRemote {
     lazy var requestObservable = BaseRemoteApiImpl(config: .default)
        func getCompetition() -> Observable<ApiResponse<CompetitionResults>> {
-        return requestObservable.makeAPIRequestObservable(responseType:ApiResponse< CompetitionResults>.self, url: RemoteApiConstants.Endpoints.getCompetitions.url, method: .Get, params: [:])
+        return requestObservable.makeAPIRequestObservable(responseType:ApiResponse<CompetitionResults>.self, url: RemoteApiConstants.Endpoints.getCompetitions.url, method: .Get, params: [:])
        }
     
     

@@ -13,7 +13,7 @@ import RxCocoa
 class CompetitionViewModel: BaseViewModel,ICompetitonViewModel  {
    
     
-    var competitionResponse: PublishSubject<[competition]> = PublishSubject()
+    var competitionResponse: PublishSubject<[Competition]> = PublishSubject()
     let competitionRepo: ICompetitionRepo
     
     init(competitionRepo: ICompetitionRepo) {
@@ -25,11 +25,29 @@ class CompetitionViewModel: BaseViewModel,ICompetitonViewModel  {
     
     
     func competitionRespond() {
+        var competitionArray = [Competition]()
         self.isLoading.onNext(true)
         competitionRepo.getCompetition().subscribe(onNext: { [weak self] res in
             self?.isLoading.onNext(false)
             if let res = res.data?.results {
-                self?.competitionResponse.onNext(res)
+                let id = [2000,2001,2002,2003,2013,2014,2015,2016,2017,2018,2019,2021]
+                              for  id in id {
+                                  for item in res{
+                                      if item.id == id {
+                                          let tierOneCompetition = Competition()
+                                          if let season = item.currentSeason?.season, let name = item.competitionName, let id = item.id {
+                                              tierOneCompetition.competitionName = name
+                                              tierOneCompetition.id = id
+                                              tierOneCompetition.Season = season
+                                              //print(tierOneCompetition.competitionName)
+                                          }
+                                          
+                                          competitionArray.append(tierOneCompetition)
+                                        self?.competitionResponse.onNext(competitionArray)
+                                      }
+                                  }
+                              }
+                
             }
             else if let apiErr = res.error {
                 self?.apiError.onNext(apiErr)

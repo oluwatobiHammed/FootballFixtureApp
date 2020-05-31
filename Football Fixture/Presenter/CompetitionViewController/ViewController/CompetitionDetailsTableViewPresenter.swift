@@ -19,7 +19,7 @@ class CompetitionDetailsTableViewPresenter: BaseTableViewController {
     @IBOutlet weak var segmentedView: UIView!
     var matchDataSource: MatchesDataSource?
     var teamDataSource: TeamDataSource?
-    var matchList: [Matches] = []
+    
     var teamList: [Teams] = []
     var data: Competition?
     override var presentRequestData: Any? {
@@ -86,21 +86,11 @@ class CompetitionDetailsTableViewPresenter: BaseTableViewController {
     private func refreshData() {
         totalViewModel?.fixtureResponse.subscribe({ [weak self] (match) in
             if let matches = match.element {
-                print("This is the competition fixtures", matches)
-                //self?.matchList = matches
+                self?.matchDataSource = MatchesDataSource(sections: matches)
+                DispatchQueue.main.async {
+                    self?.tableView?.reloadData()
+                }
                 
-                for match in matches {
-                    self?.matchList.append(match)
-                    let groups = Dictionary(grouping: self!.matchList, by: {
-                               match in
-                               dateToDay(match.utcDate!)
-                           })
-                    self?.sections = groups.map(FixtureSection.init).sorted(by: { $0.title < $1.title })
-                    self?.matchDataSource = MatchesDataSource(matchesList: matches, sections: self!.sections)
-                           DispatchQueue.main.async {
-                            self?.tableView?.reloadData()
-                                   }
-                       }
             }
         }).disposed(by: disposeBag)
         
@@ -155,6 +145,7 @@ extension CompetitionDetailsTableViewPresenter{
             }
         //emtyTableView()
         case 1:
+            tableView?.alpha = 1
             collectionView?.alpha = 0
             tableView?.dataSource = matchDataSource
             DispatchQueue.main.async {

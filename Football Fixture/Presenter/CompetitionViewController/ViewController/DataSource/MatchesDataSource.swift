@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 class MatchesDataSource: NSObject, UITableViewDataSource  {
     
-    var matchesList = [Matches]()
+    //var matchesList = [Matches]()
     var sections = [FixtureSection]()
-    init(matchesList: [Matches], sections: [FixtureSection]) {
-        self.matchesList = matchesList
+    init(sections: [FixtureSection]) {
+        //self.matchesList = matchesList
         self.sections = sections
         super.init()
     }
@@ -28,13 +28,13 @@ class MatchesDataSource: NSObject, UITableViewDataSource  {
      }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return matchesList.count
+        return sections[section].matches.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
           let cell = tableView.dequeueReusableCell(withIdentifier: "matchCell", for: indexPath) as? FixturesTableViewCell
-        print("This the TableView", matchesList[indexPath.row])
-        cell?.data = matchesList[indexPath.row]
+        //print("This the TableView", matchesList[indexPath.row])
+        cell?.data = sections[indexPath.section].matches[indexPath.row]
         cell?.selectionStyle = .none
         return cell!
     }
@@ -44,7 +44,7 @@ class MatchesDataSource: NSObject, UITableViewDataSource  {
 extension MatchesDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let cell = cell as? FixturesTableViewCell {
-            cell.data = matchesList[indexPath.row]
+            cell.data = sections[indexPath.section].matches[indexPath.row]
         }
     }
     

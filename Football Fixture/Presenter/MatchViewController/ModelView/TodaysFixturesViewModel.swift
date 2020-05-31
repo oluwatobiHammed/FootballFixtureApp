@@ -12,7 +12,7 @@ import RxCocoa
 
 class TodaysFixturesViewModel: BaseViewModel, ITodaysFixturesViewModel {
     
-    var matchResponse: PublishSubject<[Matches]> = PublishSubject()
+    var matchResponse: PublishSubject<[FixtureSection]> = PublishSubject()
     let matchRespo: IMatchesRemote
     
     init(matchRespo: IMatchesRemote) {
@@ -27,7 +27,21 @@ class TodaysFixturesViewModel: BaseViewModel, ITodaysFixturesViewModel {
         matchRespo.getMatch().subscribe(onNext: { [weak self] res in
             self?.isLoading.onNext(false)
             if let res = res.data?.results {
-                self?.matchResponse.onNext(res)
+                var matches:[Matches] = []
+                var sections = [FixtureSection]()
+                for match in res {
+                    matches.append(match)
+                    let groups = Dictionary(grouping: matches, by: {
+                        match in
+                        dateToDay(match.utcDate!)
+                    })
+                    sections = groups.map(FixtureSection.init).sorted(by: { $0.title < $1.title })
+                    //print("This is the sections", sections)
+                    
+                }
+                 self?.matchResponse.onNext(sections)
+                          
+                
             }
             else if let apiErr = res.error {
                 self?.apiError.onNext(apiErr)

@@ -12,8 +12,7 @@ class BaseTableViewController: FootBallFixtureBaseViewController {
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var collectionView: UICollectionView?
     let rc = UIRefreshControl()
-    var sections = [FixtureSection]()
-    var matches:[Matches] = []
+    
     var itemsToRender: [Any] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -55,22 +54,9 @@ class BaseTableViewController: FootBallFixtureBaseViewController {
         
     }
     fileprivate func onNewDataLoaded(result: [Any]) {
-        self.itemsToRender.removeAll()
+       self.itemsToRender.removeAll()
         self.itemsToRender.append(contentsOf: result)
-        if let result = result as? [Matches]{
-            for match in result {
-                self.matches.append(match)
-                let groups = Dictionary(grouping: self.matches, by: {
-                    match in
-                    dateToDay(match.utcDate!)
-                })
-                self.sections = groups.map(FixtureSection.init).sorted(by: { $0.title < $1.title })
-                DispatchQueue.main.async {
-                    self.tableView?.reloadData()
-                        }
-            }
-            
-        }
+        //print(result)
         
     }
     func sendId(selectedIndex: Int) {

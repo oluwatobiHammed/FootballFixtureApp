@@ -12,7 +12,7 @@ import RxCocoa
 
 class CompetitionDetailsViewModel: BaseViewModel, ICompetitionDetailsViewModel {
     var teamResponse: PublishSubject<[Teams]> = PublishSubject()
-    var fixtureResponse: PublishSubject<[Matches]> = PublishSubject()
+    var fixtureResponse: PublishSubject<[FixtureSection]> = PublishSubject()
     var tableResponse: PublishSubject<[standings]> = PublishSubject()
     var dataExist: PublishSubject<Bool> = PublishSubject()
     let tableRespon: ITableRemote
@@ -37,6 +37,7 @@ class CompetitionDetailsViewModel: BaseViewModel, ICompetitionDetailsViewModel {
                 self?.isLoading.onNext(false)
                 if let res = res.data?.standings {
                     
+                    
                     self?.tableResponse.onNext(res)
                 }
                 else if let apiErr = res.error {
@@ -54,15 +55,27 @@ class CompetitionDetailsViewModel: BaseViewModel, ICompetitionDetailsViewModel {
         tableRespon.getMatch(competitionId: competitionID).subscribe(onNext: { [weak self] res in
             self?.isLoading.onNext(false)
             if let res = res.data?.results {
-                self?.fixtureResponse.onNext(res)
+                var matches:[Matches] = []
+                var sections = [FixtureSection]()
+                for match in res {
+                    matches.append(match)
+                    let groups = Dictionary(grouping: matches, by: {
+                        match in
+                        dateToDay(match.utcDate!)
+                    })
+                    sections = groups.map(FixtureSection.init).sorted(by: { $0.title < $1.title })
+                    //print("This is the sections", sections)
+                    
+                }
+                self?.fixtureResponse.onNext(sections)
             }
             else if let apiErr = res.error {
                 self?.apiError.onNext(apiErr)
             }
             },
-                                                                                         onError: { [weak self] error in
-                                                                                            self?.isLoading.onNext(false)
-                                                                                            self?.throwableError.onNext(error)
+                                                                     onError: { [weak self] error in
+                                                                        self?.isLoading.onNext(false)
+                                                                        self?.throwableError.onNext(error)
         }).disposed(by: disposeBag)
     }
     

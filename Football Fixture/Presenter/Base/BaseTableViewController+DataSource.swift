@@ -10,28 +10,31 @@ import Foundation
 import UIKit
 
 extension BaseTableViewController: UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        if itemsToRender is [Matches] {
-              return sections.count
-              }
+        if let sectionss = itemsToRender as? [FixtureSection] {
+            return sectionss.count
+        }
         return 1
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if itemsToRender is [Matches] {
-        return sections[section].title
+        if let sectionss = itemsToRender as? [FixtureSection] {
+            return sectionss[section].title
         }
         return ""
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if itemsToRender is [Matches] {
-            return sections[section].matches.count
+        if let sectionss = itemsToRender as? [FixtureSection] {
+            return sectionss[section].matches.count
+        }else {
+            return itemsToRender.count
         }
-        return itemsToRender.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if  let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? CustomFixtureViewCell {
+            
             cell.selectionStyle = .none
             return cell
         }
@@ -47,8 +50,8 @@ extension BaseTableViewController: UITableViewDataSource {
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? CompetitionTableViewCell
-            cell?.backgroundColor = UIColor.clear
-            cell?.selectionStyle = .none
+        cell?.backgroundColor = UIColor.clear
+        cell?.selectionStyle = .none
         
         return cell!
     }
@@ -60,8 +63,11 @@ extension BaseTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if let cell = cell as? CustomFixtureViewCell {
-            cell.data = itemsToRender[indexPath.row] as? Matches
+            if let data = itemsToRender as? [FixtureSection] {
+                cell.data = data[indexPath.section].matches[indexPath.row]
+            }
         }
+        
         if let cell = cell as? CompetitionTableViewCell {
             cell.data = itemsToRender[indexPath.row] as? Competition
             cell.addTapGesture {
