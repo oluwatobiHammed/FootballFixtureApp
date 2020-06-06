@@ -21,6 +21,7 @@ class TodaysFixturesViewController: BaseTableViewController {
         super.viewDidLoad()
         cellID = "customMessageCell"
         todaysFixturesViewModel?.viewDidLoad1()
+        print("This the cell id",CellIdentifier.CompetitionTableViewCell)
         tableView?.rowHeight = 150
     }
     override func doLoadData(callback: @escaping (([Any]) -> Void)) {

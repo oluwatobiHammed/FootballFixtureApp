@@ -26,8 +26,10 @@ class BaseTableViewController: FootBallFixtureBaseViewController {
         super.viewDidLoad()
         prepareTableView()
         prepareCollectionView()
+        
     }
     
+
     func prepareTableView(){
         rc.tintColor = .systemBlue
         rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
